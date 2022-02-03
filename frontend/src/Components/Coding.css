@@ -1,0 +1,143 @@
+* {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+
+.right-container{
+  justify-content: center;
+  width: 100%;
+}
+
+
+.parent{
+  display: flex;
+  margin-bottom: 20px;
+}
+
+
+
+.list_top_questions{
+  margin-top: 10px;
+}
+
+
+.quess{
+  width: 15% !important;
+  flex-wrap: wrap;
+  max-width: 15% !important;
+  height: fit-content;
+  word-wrap: break-word;
+}
+
+
+.question{
+  color: black !important;
+  word-wrap: break-word;
+}
+
+.questions_box{
+  margin:auto;
+  flex-wrap: wrap;
+  width: 100%;
+  height: fit-content;
+  border: 3px solid burlywood;
+  border-radius:20px;
+  padding: 25px !important;
+  color: black;
+}
+
+
+@media screen and (max-width:960px) {
+  .questions_box{
+    padding: 10px;
+    width: 100%;
+  }
+
+  .companies_list{
+    display: flex;
+    margin-top: 10px;
+    /* flex-direction: column; */
+  }
+  .companies_list p{
+    border-radius: 5px;
+    padding: 2px;
+    margin: 2px;
+  }
+}
+
+@media screen and (max-width:480px) {
+  .questions_box{
+    padding: 5px;
+  }
+
+  .companies_list p{
+    font-size:8px;
+  }
+  .companies_list p{
+    border-radius: 1px;
+    padding: 2px;
+    margin: 0px;
+  }
+}
+
+@media screen and (max-width:260px) {
+  .companies_list{
+    flex-wrap: wrap;
+    margin-top: 50px;
+  }
+  .companies_list p{
+    border-radius: 1px;
+    padding: 0px;
+    margin: 0px;
+    
+  }
+}
+
+
+.question{
+  color: white;
+  width: 100%;
+}
+
+.companies_list{
+  display: flex;
+  margin-top: 10px;
+}
+
+.companies_list p{
+  background-color: grey;
+  border: 1px solid whitesmoke;
+  border-radius: 10px;
+  margin: 5px;
+  padding: 5px;
+  color: whitesmoke;
+}
+
+.solve_button{
+  float: right;
+  text-decoration: none;
+  background-color: green;
+  width: 100px;
+  border-radius: 20px;
+  padding: 10px;
+  border: 2px solid snow;
+  color: whitesmoke;
+}
+
+@media screen and (max-width:760px) {
+  .solve_button{
+    margin-top: 10%;
+  }
+}
+
+.contributor__details{
+  text-align: center;
+  color: white;
+  padding-top: 10px;
+  margin-bottom: 15px;
+}
+.contributor__details p{
+  font-size: medium;
+  color: gray;
+}

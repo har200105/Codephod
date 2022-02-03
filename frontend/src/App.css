@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300&display=swap');
+*{
+  font-family: 'Poppins', sans-serif;
+}
+
+.contr_ques{
+  text-align: center;
+  margin: 20px 0px;
+}
+
+.contr_ques:hover{
+  color: green;
+  text-decoration: underline;
+}
+
+.loggin{
+  margin-top: 10%;
+}
+
+@media screen and (max-width:760px) {
+  .loggin{
+    margin-top: 20%;
+  }
+}

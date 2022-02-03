@@ -1,0 +1,24 @@
+.intro{
+    display:flex;
+    margin:15px;
+}
+
+@media screen and (max-width:760px) {
+    .intro{
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.intro_text{
+    max-width:300px;
+    margin:30px;
+    letter-spacing: 2px;
+}
+
+.img_intro{
+    width: 80%;
+    height: 50%;
+    margin-top: 5%;
+    margin-left: 10%;
+}

@@ -1,0 +1,32 @@
+.text-editor {
+    margin: 5px 5px 5px 5px;
+    background-color: #ffffff;
+    color: black;
+    border: 5px solid green;
+    border-radius: 7px;
+    width: auto;
+    padding: 8px;
+    outline: none;
+}
+
+textarea {
+    width: 100%;
+}
+
+
+.post {
+    background: transparent;
+    border: none;
+    color: black;
+    border: 2.5px solid rgb(0, 112, 218);
+    border-radius: 10px;
+    width: 40%;
+}
+
+.post:hover {
+    background-color: rgb(59, 59, 248);
+    border: 2.5px solid rgb(82, 134, 184);
+    color: white;
+    transition: 100ms ease-in-out;
+    font-weight: 700;
+}
