@@ -1,8 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './Profile.css';
 import Button from "@material-tailwind/react/Button";
+import {Context} from '../Context/AuthContext';
+import {useNavigate} from 'react-router-dom';
 
 const Profile = () => {
+
+  const {user,dispatch} = useContext(Context);
+  const navigate = useNavigate();
+
+  const logout = () => {
+      dispatch({type:"LOGOUT"});
+      navigate("/");
+      // window.location.reload();
+  }
+
   return (
       <>
         <div
@@ -29,8 +41,10 @@ const Profile = () => {
           <div>
           <span>0 Following</span>
           </div>
-          <button className="follows" >Follow</button>
-          <button className="blocks" >Block</button>
+          <button className="edits" onClick={logout} >Logout</button>
+          {/* <button className="follows" >Follow</button>
+          <button className="blocks" >Block</button> */}
+
         </div>
       </>
   );

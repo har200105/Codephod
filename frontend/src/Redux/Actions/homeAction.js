@@ -5,8 +5,8 @@ export const getWorkshops = () => async (dispatch) => {
     try {
         dispatch({ type: 'GET_WORKSHOPS_REQ' });
         const { data } = await axios.get(API + "/getWorkshops");
-        dispatch({ type: 'GET_WORKSHOPS_SUCCESS', payload: data });
-
+        dispatch({ type: 'GET_WORKSHOPS_SUCCESS',  payload: data });
+     
     } catch (e) {
         dispatch({ type: 'GET_WORKSHOPS_FAIL', error: e });
     }

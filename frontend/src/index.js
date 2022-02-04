@@ -5,12 +5,15 @@ import App from './App';
 import { Provider } from 'react-redux';
 import store from './Redux/store';
 import reportWebVitals from './reportWebVitals';
+import { ContextProvider } from './Context/AuthContext';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <ContextProvider>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </ContextProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

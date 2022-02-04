@@ -2,10 +2,19 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { opportunityReducer, workShopReducer } from './Reducers/HomeReducer';
+import { addQAReducer, getQAReducer } from './Reducers/qaReducer';
+import { addProjectsReducer, getProjectsReducer } from './Reducers/projectReducer';
+import { addCodingReducer, getCodingReducer } from './Reducers/codingReducer';
 
 const rootReducer = combineReducers({
     opportunityReducer: opportunityReducer,
-    workShopReducer: workShopReducer
+    workShopReducer: workShopReducer,
+    getQAReducer:getQAReducer,
+    addQAReducer:addQAReducer,
+    getProjectsReducer:getProjectsReducer,
+    addProjectsReducer:addProjectsReducer,
+    getCodingReducer:getCodingReducer,
+    addCodingReducer:addCodingReducer
 });
 
 const middleware = [thunk];

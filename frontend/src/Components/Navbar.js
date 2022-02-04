@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Navbar from "@material-tailwind/react/Navbar";
 import NavbarContainer from "@material-tailwind/react/NavbarContainer";
 import NavbarWrapper from "@material-tailwind/react/NavbarWrapper";
@@ -14,9 +14,12 @@ import Dropdown from "@material-tailwind/react/Dropdown"
 import DropdownItem from "@material-tailwind/react/DropdownItem"
 import DropdownLink from "@material-tailwind/react/DropdownLink"
 import { Link } from "react-router-dom";
+import { Context } from "../Context/AuthContext";
 
 export default function Header() {
+
     const [openNavbar, setOpenNavbar] = useState(false);
+    const {user} = useContext(Context);
 
     return (
         <>
@@ -85,10 +88,10 @@ export default function Header() {
                                     Coding Questions
                                 </NavItem>
                             </Link>
-                            <Link to="/profile">
+                            <Link to={user ? "/Profile" : "/login"}>
                                 <NavLink href="/navbar" ripple="light">
                                     <Icon name="account_circle" size="xl" />
-                                    Profile
+                                    { user ? user.name : "Login" } 
                                 </NavLink>
                             </Link>
                         </Nav>

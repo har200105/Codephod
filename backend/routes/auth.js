@@ -1,5 +1,6 @@
 const User = require('../models/user');
 const b = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 const route = require('express').Router();
 
 route.post('/signup', async (req, res) => {
@@ -30,6 +31,7 @@ route.post('/signup', async (req, res) => {
 
 route.post('/login', async (req, res) => {
     try {
+        console.log(req.body);
         const { email, password } = req.body;
         if (!email || !password) {
             return res.status(401).json({ error: "Please add Email and Password Both" })
@@ -43,9 +45,9 @@ route.post('/login', async (req, res) => {
                     .then(doMatch => {
                         if (doMatch) {
                             const token = jwt.sign({ _id: SavedUser._id }, process.env.JWT_SECRET)
-                            const { _id, name, email, profilePicture } = SavedUser;
+                            const { _id, name, email , avatar } = SavedUser;
                             console.log(_id, name, email)
-                            return res.status(201).json({ token, _id, name, email, profilePicture });
+                            return res.status(201).json({ token, _id, name, email, avatar });
                         } else {
                             return res.status(401).json({ error: 'Invalid Email or Password' })
                         }

@@ -11,8 +11,12 @@ import Login from './Screens/Login';
 import Signup from './Screens/Signup';
 import SearchPage from './Screens/SearchPage';
 import Profile from './Screens/Profile';
+import { useContext } from 'react';
+import { Context } from './Context/AuthContext';
 
 function App() {
+
+  const {user} = useContext(Context);
 
   return (
 
@@ -22,40 +26,39 @@ function App() {
       <Header />
       
         <Routes>
-          <Route path="/" element={<Home/>} />
+          <Route exact path="/" element={<Home/>} />
         </Routes>
 
         <Routes>
-          <Route path="/login" element={<Login/>} />
+          <Route exact path="/login" element={user ?<Home/> :  <Login/>  } />
         </Routes>
 
         <Routes>
-          <Route path="/signup" element={<Signup/>} />
-        </Routes>
-
-
-        <Routes>
-          <Route path="/qa" element={<QA/>} />
+          <Route exact path="/register" element={user ? <Home/> : <Signup/>} />
         </Routes>
 
         <Routes>
-          <Route path="/projects" element={<ProjectsPage/>} />
+          <Route exact path="/qa" element={<QA/>} />
         </Routes>
 
         <Routes>
-          <Route path="/coding" element={<CodingQuestions/>} />
+          <Route exact path="/projects" element={<ProjectsPage/>} />
         </Routes>
 
         <Routes>
-          <Route path="/contribute" element={<ContributeQuestion/>} />
+          <Route exact path="/coding" element={<CodingQuestions/>} />
         </Routes>
 
         <Routes>
-          <Route path="/search" element={<SearchPage/>} />
+          <Route exact path="/contribute" element={<ContributeQuestion/>} />
         </Routes>
 
         <Routes>
-          <Route path="/profile" element={<Profile/>} />
+          <Route exact path="/search" element={<SearchPage/>} />
+        </Routes>
+
+        <Routes>
+          <Route exact path="/profile" element={<Profile/>} />
         </Routes>
 
       </BrowserRouter>

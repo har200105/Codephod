@@ -1,4 +1,5 @@
 export const workShopReducer = (state={workshops:[]},action)=>{
+    
     switch(action.type){
         case 'GET_WORKSHOPS_REQ':
             return {
@@ -18,9 +19,11 @@ export const workShopReducer = (state={workshops:[]},action)=>{
         default:
             return state;     
     }
+
 }
 
 export const opportunityReducer = (state={opportunities:[]},action)=>{
+    
     switch(action.type){
         case 'GET_OPPORTUNITIES_REQ':
             return {
@@ -40,4 +43,5 @@ export const opportunityReducer = (state={opportunities:[]},action)=>{
         default:
             return state;     
     }
+    
 }
