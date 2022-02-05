@@ -6,10 +6,7 @@ route.post('/addProjectPost', middleware, async (req, res) => {
     const {PostType,caption,image} = req.body;
     if(!PostType || !caption){
         return res.status(401).json({message:"Add All The Feilds"});
-    }
-    if (!caption) {
-        res.status(401).json({ message: "Add Caption" });
-    } else {
+    }else {
 
         const project = Project({
             PostType,
@@ -18,9 +15,12 @@ route.post('/addProjectPost', middleware, async (req, res) => {
         });
 
         await project.save().then((s) => {
+            console.log(s);
             res.status(201).json(s)
         })
+
     }
+    
 });
 
 route.get('/getProjectPosts', async (req, res) => {

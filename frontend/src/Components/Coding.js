@@ -7,7 +7,7 @@ import ThumbDownIcon from "@material-ui/icons/ThumbDown";
 import { ChatBubble, ThumbDownAltOutlined } from "@material-ui/icons";
 import './Coding.css';
 
-const Coding = () => {
+const Coding = ({code}) => {
     return (
         <>
             <div class="parent">
@@ -16,24 +16,20 @@ const Coding = () => {
                     <div class="questions_box">
                         <div>
                             <span>
-                                dwceuwcfbsdwceuwcfbsdwceuw
-                                cfbsdwceuwcfbsd
-                                wceuwcfbsdw
-                                ceuwcfbsdwceuwcfbs
+                               {code.Question}
                             </span>
                         </div>
-                            <a href="/abc" target="__">
+                            <a href={code.QuestionLink} target="__">
                                 <button class="solve_button">Solve</button>
                             </a>
                             <div class="companies_list">
-                                <p>Aaaa</p>
-                                <p>Aaaa</p>
-                                <p>Aaaa</p>
-                                <p>Aaaa</p>
+                               {code.Companies.map((cc)=>(
+                                   <p>{cc}</p>
+                               ))}
                             </div>
 
                             <div class="contributor__details">
-                                <p>Contributed By : Aa</p>
+                                <p>Contributed By :{code.addedBy.name} </p>
                             </div>
                         </div>
                     </div>

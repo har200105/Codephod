@@ -22,39 +22,38 @@ const QA = () => {
 
   return (
     <>
-
       {
         user &&
-<>
-        <Textarea
-          color="lightBlue"
-          size="regular"
-          value={question}
-          outline={true}
-          placeholder="Question and Answer"
-          onChange={(e) => setQuestion(e.target.value)}
 
-        />
+        <>
+          <Textarea
+            color="lightBlue"
+            size="regular"
+            value={question}
+            outline={true}
+            placeholder="Question and Answer"
+            onChange={(e) => setQuestion(e.target.value)}
+          />
 
-      <div style={{
-        float: "right",
-        marginRight: "20px"
-      }}>
-        <Button
-          color="green"
-          buttonType="filled"
-          size="regular"
-          rounded={false}
-          block={false}
-          iconOnly={false}
-          ripple="light"
-          onClick={() => dispatch(addQAPosts())}
-        >
-          Post
-        </Button>
-      </div>
-      </>
-            }
+          <div style={{
+            float: "right",
+            marginRight: "20px"
+          }}>
+            <Button
+              color="green"
+              buttonType="filled"
+              size="regular"
+              rounded={false}
+              block={false}
+              iconOnly={false}
+              ripple="light"
+              onClick={() => dispatch(addQAPosts(question))}
+            >
+              Post
+            </Button>
+          </div>
+        </>
+      }
 
       <div style={{
         marginTop: "70px"

@@ -22,23 +22,26 @@ export const getCodingReducer  = (state={coding:[]},action)=>{
 }
 
 
-export const addCodingReducer  = (state={coding:[]},action)=>{
+export const addCodingReducer  = (state={},action)=>{
     switch(action.type){
         case 'ADD_CODING_REQ':
             return {
                 ...state,
-                loading:true
+                loading:true,
+                isAdded:false
             }
         case 'ADD_CODING_SUCCESS':
             return {
                 coding:action.payload,
-                loading:false
+                loading:false,
+                isAdded:action.payload
             }    
 
         case 'ADD_CODING_FAIL':
             return {
                 loading:false,
-                error:true
+                error:true,
+                isAdded:false
             }
         default:
             return state           

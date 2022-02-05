@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import './Projects.css';
 import { Link } from 'react-router-dom';
 import ThumbUpOutlinedIcon from "@material-ui/icons/ThumbUpOutlined";
@@ -39,54 +39,23 @@ const Projects = () => {
                             }}
                         >
                             kcbhbhcbhcbhc
-                            {/* {props.postedBy.name} */}
                         </b>
                     </Link>
-                    {/* {props.postedBy._id !== current._id ? (
-   <ReportIcon
-     style={{
-       float: "right",
-       color: "red",
-       cursor: "pointer",
-     }}
-     // onClick={() => addToAdmin(props.id.toString())}
-   />
- ) : (
-   <DeleteOutlinedIcon
-     style={{
-       float: "right",
-       color: "red",
-       cursor: "pointer",
-     }}
-     // onClick={() => deletePost(props.id.toString())}
-   />
- )} */}
+
                 </div>
                 <div className="description">dqfqef</div>
-                {/* {props.photo && <img className="pics" src={props.photo} alt="" />} */}
-
-                {/* {props.hasbeenCommented ? (
- <Answer commentedBy={props.commentedBy} replies={props.comments} />
-) : (
- ""
-)} */}
                 <div
                     className="reaction"
-                //style={{ background: "#777" }}
                 >
-                    {/* {props.likes.includes(current._id) ? ( */}
                     <button className="like">
                         <ThumbUpIcon
-                            //   onClick={() => takeBackLike(props.id.toString())}
                             className="react-icon"
                             fontSize="large"
                             style={{ color: "#2DFF5E" }}
                         />
                     </button>
-                    {/* ) : ( */}
                     <button className="like">
                         <ThumbUpOutlinedIcon
-                            //   onClick={() => likePost(props.id.toString())}
                             className="react-icon"
                             fontSize="large"
                             style={{ color: "white" }}
@@ -99,13 +68,7 @@ const Projects = () => {
                             style={{ color: "white" }}
                         />
                     </button>
-                    {/* )} */}
-                    {/* {props.dislikes.includes(current._id) ? ( */}
-                    {/* )} */}
                     <button className="answer">
-                        {/* {
-     !current.isAdmin ? <DeleteOutlinedIcon/> : <div>s</div>
-   } */}
                     </button>
                 </div>
                 {
