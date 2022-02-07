@@ -25,6 +25,11 @@
 
 .title {
   font-size: 20px;
+  display: flex;
+  /* top: 20px; */
+  flex-direction: row;
+  align-items: center;
+  text-align: center !important;
 }
 
 .like,

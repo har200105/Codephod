@@ -12,12 +12,20 @@ const qaSchema = mongoose.Schema({
     },
 
     likes:[{
-
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
     }],
 
-    comments: [{
-
-    }]
+    // comments: [{
+    //     commentedBy:{
+    //         type:mongoose.Schema.Types.ObjectId,
+    //         ref:"User"
+    //     },
+    //     comment:{
+    //         type:String,
+    //         required:true
+    //     }
+    // }]
 
 
 }, { timestamps: true });

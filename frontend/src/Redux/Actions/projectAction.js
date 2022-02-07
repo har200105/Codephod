@@ -12,16 +12,38 @@ export const getProjectPosts = () => async (dispatch) => {
     }
 }
 
-export const addProjectPosts = (project) => async(dispatch) => {
-    try{
+export const addProjectPosts = (project) => async (dispatch) => {
+    try {
         dispatch({ type: 'ADD_PROJECTS_REQ' });
-        const {data} =  await axios.post(API + "/addProjectPost",project,{
-            headers:{
-                "Authorization":localStorage.getItem("jwt")
+        const { data } = await axios.post(API + "/addProjectPost", project, {
+            headers: {
+                "Authorization": localStorage.getItem("jwt")
             }
         });
-        dispatch({ type: 'ADD_PROJECTS_SUCCESS'});
-    }catch(e){
-        dispatch({ type: 'ADD_PROJECTS_FAIL', payload: e });   
+        dispatch({ type: 'ADD_PROJECTS_SUCCESS' });
+    } catch (e) {
+        dispatch({ type: 'ADD_PROJECTS_FAIL', payload: e });
     }
 }
+
+// export const getMyProjects = () => async (dispatch) => {
+    
+//     try {
+
+//         dispatch({ type: 'GET_MY_PROJECTS_REQ' });
+
+//         const { data } = await axios.get(API + "/getMyProjects", {
+//             headers: {
+//                 "Authorization": localStorage.getItem("jwt")
+//             }
+//         });
+
+//         dispatch({ type: 'GET_MY_PROJECTS_SUCCESS', payload: data });
+
+//     } catch (e) {
+//         dispatch({ type: 'GET_MY_PROJECTS_FAIL', payload: e });
+//     }
+// }
+
+
+

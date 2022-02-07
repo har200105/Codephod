@@ -1,24 +1,18 @@
 import React from 'react';
+import './QAPost.css';
+import { ChatBubble, ThumbDownAltOutlined } from "@material-ui/icons";
 import { Link } from 'react-router-dom';
 import "@material-tailwind/react/tailwind.css";
 import ThumbUpOutlinedIcon from "@material-ui/icons/ThumbUpOutlined";
-import ThumbUpIcon from "@material-ui/icons/ThumbUp";
-import ThumbDownIcon from "@material-ui/icons/ThumbDown";
-import { ChatBubble, ThumbDownAltOutlined } from "@material-ui/icons";
-import './QAPost.css';
 import { useState } from 'react';
-import { useEffect } from 'react';
 
+const Userposts = ({post}) => {
 
-const QaPosts = ({ post }) => {
-
-  console.log(post)
-
-  const [show, setShow] = useState(false);
-
+    const [show, setShow] = useState(false);
+    
   return (
-    <>
-      <div className="posts">
+      <>
+         <div className="posts">
         <div className="title">
 
           <img
@@ -93,8 +87,8 @@ const QaPosts = ({ post }) => {
           <input className='answers' placeholder='Write your views' />
         }
       </div>
-    </>
+      </>
   );
 };
 
-export default QaPosts;
+export default Userposts;

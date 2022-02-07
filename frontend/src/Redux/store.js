@@ -5,6 +5,7 @@ import { opportunityReducer, workShopReducer } from './Reducers/HomeReducer';
 import { addQAReducer, getQAReducer } from './Reducers/qaReducer';
 import { addProjectsReducer, getProjectsReducer } from './Reducers/projectReducer';
 import { addCodingReducer, getCodingReducer } from './Reducers/codingReducer';
+import { getMyPostsReducer } from './Reducers/userReducer';
 
 const rootReducer = combineReducers({
     opportunityReducer: opportunityReducer,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
     getProjectsReducer:getProjectsReducer,
     addProjectsReducer:addProjectsReducer,
     getCodingReducer:getCodingReducer,
-    addCodingReducer:addCodingReducer
+    addCodingReducer:addCodingReducer,
+    getMyPostsReducer:getMyPostsReducer
 });
 
 const middleware = [thunk];

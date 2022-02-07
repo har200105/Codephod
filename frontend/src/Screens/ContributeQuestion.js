@@ -69,7 +69,7 @@ const ContributeQuestion = ()=>{
                         name="company" 
                         type="text"
                         color="lightBlue"
-                        placeholder="Companies"
+                        placeholder="Companies (Comma separated)"
                     />
                 </div>
             </CardBody>

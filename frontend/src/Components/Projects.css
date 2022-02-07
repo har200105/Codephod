@@ -7,6 +7,12 @@
     width: 97%;
   }
   
+  @media screen and (max-width:760px) {
+    .tx{
+      font-size: 10px;
+    }
+  }
+
   .react-icon {
     margin-left: 5px !important;
     margin-right: 5px !important;

@@ -95,7 +95,7 @@ export default function Header() {
                                 </NavLink>
                             </Link>
                         </Nav>
-                        <NavbarInput type="text" placeholder="Search here" />
+                        <NavbarInput type="text" placeholder="Search Geeks" />
                     </NavbarCollapse>
                 </NavbarContainer>
 

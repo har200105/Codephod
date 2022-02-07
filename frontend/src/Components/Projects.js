@@ -6,7 +6,8 @@ import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 import ThumbDownIcon from "@material-ui/icons/ThumbDown";
 import { ChatBubble, ThumbDownAltOutlined } from "@material-ui/icons";
 
-const Projects = () => {
+const Projects = ({project}) => {
+    console.log(project)
     const [show, setShow] = useState(false);
     return (
         <>
@@ -31,31 +32,46 @@ const Projects = () => {
                             textDecoration: "none",
                             color: "white",
                         }}
-                        to={`/user/`}
+                        to={`/user/${project.postedBy._id}`}
                     >
                         <b
                             style={{
                                 textStyle: "none",
                             }}
                         >
-                            kcbhbhcbhcbhc
+                            {project.postedBy.name} 
+                           
                         </b>
+                        
                     </Link>
+                    
+                     {project.PostType  === "Share" ? <p className='tx'> 
+                                Shared New His New Project
+                            </p> :<p className='tx'> 
+                               &nbsp;  is Asking a Project Collaboration
+                            </p> }
 
                 </div>
-                <div className="description">dqfqef</div>
+                <div className="description">{project.caption} </div>
                 <div
                     className="reaction"
                 >
-                    <button className="like">
+                    {/* <button className="like">
                         <ThumbUpIcon
                             className="react-icon"
                             fontSize="large"
                             style={{ color: "#2DFF5E" }}
                         />
-                    </button>
+                    </button> */}
                     <button className="like">
                         <ThumbUpOutlinedIcon
+                            className="react-icon"
+                            fontSize="large"
+                            style={{ color: "white" }}
+                        />
+                    </button>
+                    <button className="like">
+                        <ThumbDownAltOutlined
                             className="react-icon"
                             fontSize="large"
                             style={{ color: "white" }}

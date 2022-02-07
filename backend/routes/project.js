@@ -11,7 +11,8 @@ route.post('/addProjectPost', middleware, async (req, res) => {
         const project = Project({
             PostType,
             caption,
-            image
+            image,
+            postedBy:req.user._id
         });
 
         await project.save().then((s) => {
@@ -25,7 +26,10 @@ route.post('/addProjectPost', middleware, async (req, res) => {
 
 route.get('/getProjectPosts', async (req, res) => {
     try {
-        await Project.find({}).sort("-createdAt").then((s) => {
+        await Project.find({})
+        .populate("postedBy","name email")
+        .sort("-createdAt")
+        .then((s) => {
             res.status(201).json(s)
         })
     } catch (e) {

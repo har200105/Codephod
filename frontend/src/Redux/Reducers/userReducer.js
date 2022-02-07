@@ -26,7 +26,7 @@ export const getUserReducer  = (state={user:{}},action)=>{
 }
 
 
-export const addQAReducer  = (state={qa:[]},action)=>{
+export const getMyPostsReducer  = (state={posts:[]},action)=>{
 
     switch(action.type){
         case 'GET_MY_POSTS_REQ':
@@ -36,7 +36,7 @@ export const addQAReducer  = (state={qa:[]},action)=>{
             }
         case 'GET_MY_POSTS_SUCCESS':
             return {
-                qa:action.payload,
+                posts:action.payload,
                 loading:false
             }    
 

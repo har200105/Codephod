@@ -5,7 +5,7 @@ const User = require('../models/user');
 module.exports = (req, res, next) => {
     const { authorization } = req.headers;
     if (!authorization) {
-        res.status(401).json({ error: "You are not Logged In !!" });
+     return  res.status(401).json({ error: "You are not Logged In !!" });
     }
 
     jwt.verify(authorization,process.env.JWT_SECRET, (err, payload) => {

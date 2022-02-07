@@ -73,7 +73,7 @@ const QA = () => {
 
         {
           qa.map((q) => (
-            <QaPosts />
+            <QaPosts  post = {q}/>
           ))
         }
 

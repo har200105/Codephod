@@ -12,19 +12,9 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    projects: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: ""
-    }],
-
     avatar: {
         type: String,
     },
-
-    qas: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Qa"
-    }],
 
     projects: [{
         type: mongoose.Schema.Types.ObjectId,

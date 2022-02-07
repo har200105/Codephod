@@ -13,7 +13,8 @@ route.post('/addQA', middleware, async (req, res) => {
     } else {
 
         const qa = QA({
-            caption:ques
+            caption:ques,
+            postedBy:req.user._id
         });
 
         await qa.save().then((s) => {
@@ -26,7 +27,12 @@ route.post('/addQA', middleware, async (req, res) => {
 
 route.get('/getQA', async (req, res) => {
     try {
-        await QA.find({}).sort("-createdAt").then((s) => {
+        await QA.find({})
+        .populate("postedBy","name email")
+        .sort("-createdAt")
+        
+        .then((s) => {
+            console.log(s)
             res.status(201).json(s)
         })
     } catch (e) {

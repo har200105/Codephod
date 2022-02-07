@@ -5,8 +5,8 @@ const db = require('./db');
 const cors = require('cors');
 app.use(cors());
 app.use(express.json());
-
 db();
+
 app.use('/',require('./routes/auth'));
 app.use('/',require('./routes/qa'));
 app.use('/',require('./routes/project'));
