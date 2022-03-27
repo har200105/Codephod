@@ -15,7 +15,7 @@ const Projects = ({ project, isDelete }) => {
 
     
   const { user,isAuthenticated } = useSelector((state) => state.getUserReducer);
-    const [commentValue, setCommentValue] = useState("");
+  const [commentValue, setCommentValue] = useState("");
   const dispatch = useDispatch();
   const [commentToggle, setCommentToggle] = useState(false);
   
@@ -24,7 +24,6 @@ const Projects = ({ project, isDelete }) => {
   const addCommentHandler = async (e) => {
     e.preventDefault();
     dispatch(addCommentOnProject(project?._id, commentValue));
-
   };
 
       const likePost = async (id) => {
@@ -42,7 +41,6 @@ const Projects = ({ project, isDelete }) => {
 
   const disLike = async (id) => {
     const post = await axios.put(API + `/dislikeProject/${id}`, {
-       
     }, {
       headers: {
           "Authorization":localStorage.getItem("jwt")
@@ -57,13 +55,15 @@ const Projects = ({ project, isDelete }) => {
   const deletePost = async () => {
     dispatch(deleteProjectPost(project?._id));
      dispatch(getProjectPosts());
-    
   }
 
     return (
         <>
             <div className="posts">
                 <div className="title">
+            <div style={{
+                    width:"100%"
+                  }}>
                         <b
                             style={{
                                 textStyle: "none",
@@ -74,8 +74,12 @@ const Projects = ({ project, isDelete }) => {
                      {project?.PostType  === "Share" ? <p className='tx'> 
                                  &nbsp;  Shared New His New Project
                             </p> :<p className='tx'> 
-                               &nbsp;  is Asking a Project Collaboration
-            </p>}
+                  &nbsp;  is Asking a Project Collaboration
+                  
+              </p>
+              }
+              </div>
+            
                  {
               isDelete && <div style={{
                 float: "right !important",
@@ -85,7 +89,20 @@ const Projects = ({ project, isDelete }) => {
                 <Delete onClick={() =>deletePost()}/>
                           </div>
                         }
+          </div>
+          {
+              project?.image &&
+              <div style={{
+              
+              }}>
+              <img src={project?.image} alt="" style={{
+                width: "25%",
+                height: "25%",
+                  marginTop: "20px",
+                    marginLeft:"15%"
+              }}/>
                 </div>
+            }
                 <div className="description">{project.caption} </div>
                 <div className="reaction">
             {isAuthenticated &&

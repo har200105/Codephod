@@ -7,15 +7,18 @@ const projectSchema = mongoose.Schema({
     },
 
     postedBy: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User"
+    },
+    
+    image: {
+      type: String,
     },
 
     caption: {
         type: String,
         required: true
     },
-
     likes: [{
        type: mongoose.Schema.Types.ObjectId,
         ref:"User"

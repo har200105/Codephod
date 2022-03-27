@@ -45,12 +45,12 @@ export default function Header() {
                                     Home
                                 </NavItem>
                             </Link>
-                            <Link to="/qa">
+                            {/* <Link to="/qa">
                                 <NavItem href ripple="light">
                                     <Icon name="question_mark" size="xl" />
                                     Q&#38;A
                                 </NavItem>
-                            </Link>
+                            </Link> */}
                             <Link to="/projects">
                                     <NavItem ripple="light">
                                         <Icon name="work" size="xl" />
@@ -60,7 +60,7 @@ export default function Header() {
                             <Link to="/coding">
                                 <NavItem ripple="light">
                                     <Icon name="code" size="xl" />
-                                    Coding Questions
+                                    Coding
                                 </NavItem>
                             </Link>
                             <Link to={user ? "/Profile" : "/login"}>

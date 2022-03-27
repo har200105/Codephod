@@ -44,11 +44,7 @@ const CommentCard = ({
           marginLeft: "15px",
           fontSize:"20px"
           }}>{comment}
-                <button style={{
-        color:"blue"
-      }}
-      onClick={()=>setReply(true)}
-      >
+                <button style={{color:"blue"}} onClick={()=>setReply(true)}>
         <Reply/>
       </button>
           </p>

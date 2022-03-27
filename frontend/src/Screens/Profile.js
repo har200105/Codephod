@@ -72,7 +72,7 @@ const Profile = () => {
           ))
         }
 
-        {
+        {/* {
           qa?.length !==  0 && 
          <h1 style={{
           marginTop: "20px",
@@ -83,7 +83,7 @@ const Profile = () => {
           qa?.map((q) => (
             <QaPosts post = {q}  isDelete={true} />
           ))
-        }
+        } */}
 
 
       </div>

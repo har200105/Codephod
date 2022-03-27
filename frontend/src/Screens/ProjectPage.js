@@ -7,7 +7,8 @@ import { Context } from '../Context/AuthContext';
 import axios from 'axios';
 import { addProjectPosts, getProjectPosts } from '../Redux/Actions/projectAction';
 import { useNavigate } from 'react-router-dom';
-
+import { AddAPhoto } from '@material-ui/icons';
+import { useToast } from '@chakra-ui/react';
 
 
 const ProjectsPage = () => {
@@ -17,7 +18,23 @@ const ProjectsPage = () => {
   const dispatch = useDispatch();
   const [ptext,setPText] = useState("");
   const { projects, loading, error } = useSelector((state) => state.getProjectsReducer);
-  const {user,isAuthenticated} = useSelector((state) => state.getUserReducer);
+  const { user, isAuthenticated } = useSelector((state) => state.getUserReducer);
+  const[shareImage,setShareImage] =  useState("");
+  const [file, setFile] = useState();
+
+  const toast = useToast();
+
+    const readImage = (e) =>{
+    console.log(e)
+    const reader = new FileReader();
+    reader.onload = () =>{
+      if(reader.readyState===2){
+        setFile(reader.result);
+      }
+    }
+      reader.readAsDataURL(e.target.files[0]); 
+  }
+
 
   const shareProject = () => {
     
@@ -28,14 +45,20 @@ const ProjectsPage = () => {
       type = "Proposal";
     }else if(hashtag[0] === "#myproject"){
       type = "Share";
-    }else{
-      console.log("Wrong Hashtag");
-      return ;
+    } else {
+      toast({
+        title: "Invalid Hashtag",
+        isClosable: false,
+        status: "warning",
+        position:"top-right"
+      })
+      return;
     }
 
     dispatch(addProjectPosts({
       caption:ptext,
-      PostType:type 
+      PostType: type,
+      image:file
     }));
     
 
@@ -44,9 +67,10 @@ const ProjectsPage = () => {
   }
 
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(getProjectPosts());
-  },[dispatch])
+  }, [dispatch]);
+
 
 
   return (
@@ -73,7 +97,8 @@ const ProjectsPage = () => {
             <li>Use Hashtag "#proposal"  to share your project proposal</li>
             <li>Use Hashtag "#myproject"  to share your new project developed by you</li>
           </ul>
-        </div>
+          </div>
+          <div>
           <Textarea
             value={ptext}
             color="lightBlue"
@@ -82,10 +107,21 @@ const ProjectsPage = () => {
             placeholder="Projects"
             onChange = {(e)=>setPText(e.target.value)}
           />
+            </div>
           <div style={{
-            float: "right",
-            marginRight: "20px"
+            display: "flex",
+            justifyContent:"space-between"
           }}>
+            <input type="file" id="file" style={{
+              display:"none"
+            }}
+             onChange={(e)=>readImage(e)}
+            />
+            <label htmlFor='file'>
+            <AddAPhoto style={{
+                    marginLeft:"50px"
+              }} />
+              </label>
             <Button
               color="green"
               buttonType="filled"
@@ -99,6 +135,7 @@ const ProjectsPage = () => {
               Share
             </Button>
           </div>
+         {file && <img src={file} alt=""/>}
         </>
       }
       

@@ -67,7 +67,7 @@ const Contests = () => {
                 <Carousel breakPoints={breakPoints}>
                     {
                         coding.map((o => ( 
-                            o?.in_24_hours !== "No"  &&
+                            // o?.in_24_hours !== "No"  &&
                             <Card>
                                 <CardBody>
                                     <H6 color="gray">{o.formType}</H6>

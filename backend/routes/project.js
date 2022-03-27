@@ -1,24 +1,46 @@
 const route = require('express').Router();
 const Project = require('../models/project');
 const middleware = require('../middleware/middleware');
+const cloudinary = require('cloudinary');
 
 route.post('/addProjectPost', middleware, async (req, res) => {
     const {PostType,caption,image} = req.body;
     if(!PostType || !caption){
         return res.status(401).json({message:"Add All The Feilds"});
-    }else {
+    } else {
+      
+      if (image) {
+        const imgurl = cloudinary.v2.uploader.upload(image, {
+    folder: "Shiddat",
+    width: 150,
+    crop: "scale"
+        }).then(async(s) => {
 
         const project = Project({
-            PostType,
-            caption,
-            image,
-            postedBy:req.user._id
+          PostType,
+          caption,  
+          image:s.secure_url,
+          postedBy: req.user._id
         });
 
         await project.save().then((s) => {
-            console.log(s);
-            res.status(201).json(s)
+          console.log(s);
+          res.status(201).json(s)
+        })          
+  })
+      } else {
+        const project = Project({
+          PostType,
+          caption,
+          image,
+          postedBy: req.user._id
+        });
+
+        await project.save().then((s) => {
+          console.log(s);
+          res.status(201).json(s)
         })
+      }
     }
 });
 

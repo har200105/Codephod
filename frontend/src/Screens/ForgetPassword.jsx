@@ -25,6 +25,8 @@ const ForgetPassword = () => {
                 position: "top-right",
                 isClosable:true
             });
+        } else {
+            // const forgetPass = await axios.put(`${API}/forgetPassword`);
         }
     }
 
