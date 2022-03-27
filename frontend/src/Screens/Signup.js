@@ -10,6 +10,7 @@ import { Context } from "../Context/AuthContext";
 import axios from "axios";
 import { API } from "../API";
 import { Link } from "react-router-dom";
+import { useToast } from "@chakra-ui/react";
 
 const Signup = () => {
 
@@ -17,39 +18,54 @@ const Signup = () => {
     const [email, setEmail] = useState("");
     const [error, setError] = useState("");
     const [password, setPassword] = useState("");
-
+    const toast = useToast();
     const {user,dispatch} =  useContext(Context);
 
     const signUser = async () => {
 
         try {
-            
-            const signs = await axios.post(API + "/signup", {
-                name,
-                email,
-                password
-            });
-
-            dispatch({ type: 'LOGIN_START' });
-
-            if (signs.status === 201) {
-                console.log(signs);
-                localStorage.setItem("jwt", signs.data.token);
-                dispatch({ type: "LOGIN_SUCCESS", payload: signs.data });
+            if (/.+@.+\.[A-Za-z]+$/.test(email)) {
+                const signs = await axios.post(API + "/signup", {
+                    name,
+                    email,
+                    password
+                });
+                if (signs.data.success) {
+                    toast({
+                        title: "Success",
+                        description: signs.data.message,
+                        status: "success",
+                        isClosable: true
+                    });
+                }
+                else {
+                    toast({
+                        title: "Error",
+                        description: signs.data.message,
+                        status: "error",
+                        isClosable: true
+                    });
+                }
+            } else {
+                  toast({
+                        title: "Error",
+                        description: "Invalid Email",
+                        status: "error",
+                        isClosable: true
+                    });
             }
-
         } catch (e) {
-            setError("Invalid Credentials");
-            dispatch({ type: "LOGIN_FAILURE" });
+            toast({
+                title:"Something went wrong",
+                status: "error",
+                isClosable:true
+            });
         }
-
     }
 
     return (
         <div className="loggin">
-
             <Card>
-
                 <CardHeader color="green" size="sm">
                     <H5 color="white">Signup</H5>
                 </CardHeader>

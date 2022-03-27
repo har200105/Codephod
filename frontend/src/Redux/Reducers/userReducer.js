@@ -2,21 +2,23 @@ export const getUserReducer  = (state={user:{}},action)=>{
 
     switch(action.type){
 
-        case 'GET_USER_REQ':
+        case 'LOAD_USER_REQ':
             return {
                 ...state,
                 loading:true
             }
-        case 'GET_USER_SUCCESS':
+        case 'LOAD_USER_SUCCESS':
             return {
                 user:action.payload,
-                loading:false
+                loading: false,
+                isAuthenticated:true
             }    
 
-        case 'GET_USER_FAIL':
+        case 'LOAD_USER_FAIL':
             return {
                 loading:false,
-                error:true
+                error: true,
+                isAuthenticated:false
             }    
         default:
             return state       

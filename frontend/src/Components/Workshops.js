@@ -24,13 +24,21 @@ const Workshops = () => {
     const dispatch = useDispatch();
     const { workshops, error, loading } = useSelector((state) => state.workShopReducer);
 
+
     useEffect(() => {
         dispatch(getWorkshops());
     }, [dispatch]);
 
     return (
         <>
-            {loading && <Loader/>}
+            <div className='contr_ques'>
+                <Link to="/addWorkshop">
+                Add Workshops to the Portal
+                </Link>
+            </div>
+        
+            {loading && <Loader />}
+            
             {
                 workshops.length === 0 && <h1 style={{
                     textAlign:"center",
@@ -38,6 +46,7 @@ const Workshops = () => {
                     fontSize: "25px"
                 }}>No Workshops Available Currently</h1>
             }
+
             {
                 workshops.length > 0 &&
                 <>
@@ -68,7 +77,7 @@ const Workshops = () => {
                                         <CardFooter>
                                             <a href={w.workShopLink} target="_parent">
                                                 <Button color="lightBlue" size="lg" ripple="light">
-                                                    Apply
+                                                    Register
                                                 </Button>
                                             </a>
                                         </CardFooter>
@@ -79,6 +88,7 @@ const Workshops = () => {
                     </div>
                 </>
             }
+
         </>
     );
 };

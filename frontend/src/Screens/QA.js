@@ -11,30 +11,31 @@ const QA = () => {
 
   const [question, setQuestion] = useState("");
   const dispatch = useDispatch();
-  const { user } = useContext(Context);
+  const {user,isAuthenticated} = useSelector((state) => state.getUserReducer);
   const { loading, qa, error } = useSelector((state) => state.getQAReducer);
+  const [ptext, setPText] = useState("");
+  
+   const shareQA = () => {
+    dispatch(addQAPosts(question));
+  }
 
-
-
+      
   useEffect(() => {
     dispatch(getQAPosts());
   }, []);
 
   return (
     <>
-      {
-        user &&
-
-        <>
+        {
+        user && <>
           <Textarea
+            value={question}
             color="lightBlue"
             size="regular"
-            value={question}
             outline={true}
-            placeholder="Question and Answer"
-            onChange={(e) => setQuestion(e.target.value)}
+            placeholder="Projects"
+            onChange = {(e)=>setQuestion(e.target.value)}
           />
-
           <div style={{
             float: "right",
             marginRight: "20px"
@@ -47,33 +48,32 @@ const QA = () => {
               block={false}
               iconOnly={false}
               ripple="light"
-              onClick={() => dispatch(addQAPosts(question))}
+              onClick={shareQA}
             >
-              Post
+              Share
             </Button>
           </div>
         </>
       }
-
+      
       <div style={{
         marginTop: "70px"
       }}>
 
         {
-          qa.length === 0 && <div style={{
+          qa?.length === 0 && <div style={{
             justifyContent: "center"
           }}>
             <h1 style={{
               textAlign: "center",
               fontSize: "20px"
-            }}>No QAs Available Currently</h1>
+            }}>No Projects Available Currently</h1>
           </div>
         }
 
-
         {
-          qa.map((q) => (
-            <QaPosts  post = {q}/>
+          qa?.map((q) => (
+            <QaPosts post = {q}/>
           ))
         }
 

@@ -1,81 +1,91 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import "@material-tailwind/react/tailwind.css";
 import ThumbUpOutlinedIcon from "@material-ui/icons/ThumbUpOutlined";
 import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 import ThumbDownIcon from "@material-ui/icons/ThumbDown";
-import { ChatBubble, ThumbDownAltOutlined } from "@material-ui/icons";
+import { ChatBubble, Delete, ThumbDownAltOutlined } from "@material-ui/icons";
 import './QAPost.css';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteQAPost, getQAPosts } from '../Redux/Actions/qaAction';
+import { API } from '../API';
+import { Link } from 'react-router-dom';
 
 
-const QaPosts = ({ post }) => {
+const QaPosts = ({ post,isDelete }) => {
 
-  console.log(post)
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.getUserReducer);
+
+  const likePost = async (id) => {
+    const post = await axios.put(API + `/likeQA/${id}`, {
+      
+    }, {
+      headers: {
+         "Authorization":localStorage.getItem("jwt")
+      }
+    });
+    if (post.data.success) {
+      dispatch(getQAPosts());
+    }
+  }
+
+  const deletePost = async () => {
+    dispatch(deleteQAPost(post?._id));
+        dispatch(getQAPosts());
+  }
+
+  const disLike = async (id) => {
+    const post = await axios.put(API + `/dislikeQA/${id}`, {
+       
+    }, {
+      headers: {
+          "Authorization":localStorage.getItem("jwt")
+       }
+     });
+    if (post.data.success) {
+      dispatch(getQAPosts());
+    }
+  }
 
   const [show, setShow] = useState(false);
 
   return (
     <>
       <div className="posts">
+        <div  className='title'>
         <div className="title">
-
-          <img
-            className="profile_pic"
-            src={"https://res.cloudinary.com/harshit111/image/upload/v1627476264/fqnrpqlujucrotiazxvc.png"
-            }
-            style={{
-              height: "50px",
-              width: "50",
-              borderRadius: "40px",
-              margin: "10px",
-            }}
-            alt=""
-          />
-          {/* <div style={{
-            display: "flex !important",
-            flexDirection: "row !important"
-          }}> */}
-            <Link
-              style={{
-                textStyle: "none",
-                textDecoration: "none",
-                color: "white",
-              }}
-              to={`/user/${post.postedBy._id}`}
-            >
               <b
                 style={{
                   textStyle: "none",
                 }}
               >
-                {post.postedBy.name}
+                {post?.postedBy?.name}
               </b>
-            </Link>
-          {/* </div> */}
-        </div>
+          </div>
+         {
+              isDelete && <div style={{
+                float: "right !important",
+                marginLeft:"20px",
+                color:"red"
+              }}> 
+              <Delete onClick={()=>deletePost()} />
+              </div>
+          }
+          </div>
         <div className="description">{post.caption}</div>
         <div
           className="reaction"
         >
-          {/* <button className="like">
-            <ThumbUpIcon
-              className="react-icon"
-              fontSize="large"
-              style={{ color: "#2DFF5E" }}
-            />
-          </button> */}
           <button className="like">
             <ThumbUpOutlinedIcon
               className="react-icon"
               fontSize="large"
-              style={{ color: "white" }}
-            />
-              <ThumbDownAltOutlined
-              className="react-icon"
-              fontSize="large"
-              style={{ color: "white" }}
+              style={{ color: post.likes.includes(user?._id) ? "green":"white" }}
+              onClick={() => post.likes.includes(user?._id) ? disLike(post?._id) :
+                likePost(post?._id)}
             />
           </button>
           <button className='like' onClick={() => setShow(true)}>
@@ -85,8 +95,13 @@ const QaPosts = ({ post }) => {
               style={{ color: "white" }}
             />
           </button>
-          <button className="answer">
-          </button>
+          <p style={{
+            float: "right !important",
+            fontSize: "30px",
+            marginLeft:"20%"
+          }}> 
+            {post?.likes?.length}
+          </p>
         </div>
         {
           show &&

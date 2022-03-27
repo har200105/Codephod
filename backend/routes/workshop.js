@@ -4,25 +4,27 @@ const middleware = require('../middleware/middleware');
 
 route.post('/addWorkshop', middleware, async (req, res) => {
     try {
-
-    } catch (e) {
-        const { image, OrganizedAt, OrganizedBy, OrganizedOn, details } = req.body;
-        if (!OrganizedBy || !OrganizedAt || !Duration || !OrganizedOn || !details || !image) {
+        console.log(req.body);
+        const { OrganizedAt, OrganizedBy, OrganizedOn, details,workShopLink,workshopTitle } = req.body;
+        if (!OrganizedBy || !OrganizedAt || !workShopLink || !OrganizedOn || !details) {
             res.status(401).json({ message: "Add All feilds" });
         } else {
 
-            const qa = Workshop({
-                image,
+            const workshop = Workshop({
                 OrganizedAt,
                 OrganizedBy,
                 OrganizedOn,
-                details
+                details,
+                workshopTitle,
+                workShopLink
             });
 
-            await qa.save().then((s) => {
+            await workshop.save().then((s) => {
                 res.status(201).json(s)
             })
         }
+    } catch (e) {
+        res.status(500).json(e);
     }
 });
 

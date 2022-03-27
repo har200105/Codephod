@@ -19,10 +19,7 @@ const Login = () => {
     const [password, setPassword] = useState("");
 
     const LoginUser = async () => {
-
-        console.log("eefe")
         try {
-            
             const logs = await axios.post(API + "/login" , {
                 email,
                 password
@@ -31,22 +28,19 @@ const Login = () => {
             dispatch({ type: 'LOGIN_START' });
 
             if (logs.status === 201) {
-
-                console.log(logs);
                 localStorage.setItem("jwt", logs.data.token);
                 dispatch({ type: "LOGIN_SUCCESS", payload: logs.data });
-
             }
         } catch (e) {
             console.log("eefede")
             setError("Invalid Credentials");
             dispatch({ type: "LOGIN_FAILURE" });
-
         }
     }
 
     return (
         <div className="loggin">
+
             <Card>
                 <CardHeader color="green" size="sm">
                     <H5 color="white">Login</H5>
@@ -54,6 +48,7 @@ const Login = () => {
 
                 <CardBody>
                     <div className="mb-8 px-4">
+                        
                         <InputIcon
                             type="email"
                             color="lightBlue"
@@ -61,8 +56,10 @@ const Login = () => {
                             iconName="email"
                             onChange={(e) => setEmail(e.target.value)}
                         />
+
                     </div>
                     <div className="mb-4 px-4">
+
                         <InputIcon
                             type="password"
                             color="lightBlue"
@@ -70,10 +67,12 @@ const Login = () => {
                             iconName="lock"
                             onChange={(e) => setPassword(e.target.value)}
                         />
+
                     </div>
                 </CardBody>
                 <CardFooter>
                     <div className="flex justify-center">
+
                         <Button
                             color="lightBlue"
                             buttonType="link"
@@ -83,15 +82,22 @@ const Login = () => {
                         >
                             Login
                         </Button>
+
                     </div>
                     <div 
                     className="flex justify-center" style={{
-                        marginTop:"10px"
+                            marginTop: "10px",
+                            display: "flex",
+                        flexDirection:"column"
                     }}>
                         <Link to="/register" style={{
                             textAlign: "center",
                             color:"blue"
                         }} >New To Codephod ? Register</Link>
+                          <Link to="/forgetPassword" style={{
+                            textAlign: "center",
+                            color:"blue"
+                        }}>Forget Password ?</Link>
                         <p style={{
                             color: "red"
                         }}>{error}</p>

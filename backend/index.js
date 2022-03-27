@@ -3,6 +3,8 @@ const app = express();
 require('dotenv').config();
 const db = require('./db');
 const cors = require('cors');
+const middleware = require('./middleware/middleware');
+
 app.use(cors());
 app.use(express.json());
 db();
@@ -10,14 +12,13 @@ db();
 app.use('/',require('./routes/auth'));
 app.use('/',require('./routes/qa'));
 app.use('/',require('./routes/project'));
-app.use('/',require('./routes/user'));
+app.use('/api',middleware,require('./routes/user'));
 app.use('/',require('./routes/workshop'));
-app.use('/',require('./routes/coding'));
-
-
+app.use('/', require('./routes/coding'));
+app.use('/', require('./routes/contest'));
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT,()=>{
+app.listen(PORT, () => {
     console.log("Server is Starting");
-})
+});

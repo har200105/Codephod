@@ -17,7 +17,7 @@ const ProjectsPage = () => {
   const dispatch = useDispatch();
   const [ptext,setPText] = useState("");
   const { projects, loading, error } = useSelector((state) => state.getProjectsReducer);
-  const { user } = useContext(Context);
+  const {user,isAuthenticated} = useSelector((state) => state.getUserReducer);
 
   const shareProject = () => {
     
@@ -118,7 +118,7 @@ const ProjectsPage = () => {
         }
 
         {
-          projects.map((p) => (
+          projects?.map((p) => (
             <Projects project={p} />
           ))
         }

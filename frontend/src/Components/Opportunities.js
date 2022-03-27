@@ -30,43 +30,54 @@ const Opportunities = () => {
 
     return (
         <>
-            {loading && <Loader/>}
+            {loading && <Loader />}
             {
-                opportunities.length === 0 && <h4>No Workshops Available Currently</h4>
-            }
-            <h1 style={{
-                justifyContent: "center",
-                textAlign: "center",
-                fontSize: "25px"
-            }}>Upcoming Opportunities</h1>
+                opportunities?.length > 0 ?
+                    <h1 style={{
+                        justifyContent: "center",
+                        textAlign: "center",
+                        fontSize: "25px"
+                    }}>Upcoming Opportunities</h1> : 
+                    
+                      <h1 style={{
+                        justifyContent: "center",
+                        textAlign: "center",
+                        fontSize: "25px"
+                    }}>No Upcoming Opportunities</h1>
+                    
+                    }
             <div style={{
                 display: "flex",
                 alignContent: "center",
                 justifyContent: "center"
             }}>
-                <Carousel breakPoints={breakPoints}>
-                    {
-                        opportunities.map((o => (
-                            <Card>
-                                <CardBody>
-                                    <H6 color="gray">{o.formType}</H6>
-                                    <Paragraph color="gray">
-                                        Company Name : {o.companyName}
-                                      <p>Eligibility : {o.eligibility}</p> 
-                                       <p>Deadline : {new Date(o.deadlinetoFill).toDateString()}</p> 
-                                    </Paragraph>
-                                </CardBody>
-                                <CardFooter>
-                                    <a href={o.link} target="_blank">
-                                        <Button color="lightBlue" size="lg" ripple="light">
-                                            Apply
-                                        </Button>
-                                    </a>
-                                </CardFooter>
-                            </Card>
-                        )))
-                    }
-                </Carousel>
+                {
+                    opportunities?.length > 0 &&
+        
+                    <Carousel breakPoints={breakPoints}>
+                        {
+                            opportunities.map((o => (
+                                <Card>
+                                    <CardBody>
+                                        <H6 color="gray">{o.formType}</H6>
+                                        <Paragraph color="gray">
+                                            Company Name : {o.companyName}
+                                            <p>Eligibility : {o.eligibility}</p>
+                                            <p>Deadline : {new Date(o.deadlinetoFill).toDateString()}</p>
+                                        </Paragraph>
+                                    </CardBody>
+                                    <CardFooter>
+                                        <a href={o.link} target="_blank">
+                                            <Button color="lightBlue" size="lg" ripple="light">
+                                                Apply
+                                            </Button>
+                                        </a>
+                                    </CardFooter>
+                                </Card>
+                            )))
+                        }
+                    </Carousel>
+                }
             </div>
         </>
     );

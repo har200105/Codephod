@@ -47,3 +47,31 @@ export const addCodingReducer  = (state={},action)=>{
             return state           
     }
 }
+
+
+export const addWorkshopReducer  = (state={},action)=>{
+    switch(action.type){
+        case 'ADD_WORKSHOP_REQ':
+            return {
+                ...state,
+                loading:true,
+                isAdded:false
+            }
+        case 'ADD_WORKSHOP_SUCCESS':
+            return {
+                coding:action.payload,
+                loading:false,
+                isAdded:action.payload
+            }    
+
+        case 'ADD_WORKSHOP_FAIL':
+            return {
+                loading:false,
+                error:true,
+                isAdded:false
+            }
+        default:
+            return state           
+    }
+}
+

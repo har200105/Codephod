@@ -15,11 +15,12 @@ import DropdownItem from "@material-tailwind/react/DropdownItem"
 import DropdownLink from "@material-tailwind/react/DropdownLink"
 import { Link } from "react-router-dom";
 import { Context } from "../Context/AuthContext";
+import { useSelector } from "react-redux";
 
 export default function Header() {
 
     const [openNavbar, setOpenNavbar] = useState(false);
-    const {user} = useContext(Context);
+    const { isAuthenticated, user } = useSelector((state) => state.getUserReducer);
 
     return (
         <>
@@ -51,32 +52,6 @@ export default function Header() {
                                 </NavItem>
                             </Link>
                             <Link to="/projects">
-                                {/* <Dropdown
-                                color="transparent"
-                                placement="bottom-start"
-                                buttonText={
-                                    <div className="flex items-center text-xs uppercase">
-                                    <Icon name="work" size="2xl" />
-                                    &nbsp;Projects
-                                </div>
-                                }
-                                size="regular"
-                                rounded={false}
-                                block={false}
-                                ripple="light"
-                            >
-                                <DropdownItem color="green" ripple="light">
-                                    Latest Projects
-                                </DropdownItem>
-                                <DropdownLink
-                                    href="#"
-                                    color="green"
-                                    ripple="light"
-                                    onClick={(e) => e.preventDefault()}
-                                >
-                                    Proposals
-                                </DropdownLink>
-                            </Dropdown> */}
                                     <NavItem ripple="light">
                                         <Icon name="work" size="xl" />
                                         Projects
@@ -91,11 +66,15 @@ export default function Header() {
                             <Link to={user ? "/Profile" : "/login"}>
                                 <NavLink href="/navbar" ripple="light">
                                     <Icon name="account_circle" size="xl" />
-                                    { user ? user.name : "Login" } 
+                                    { user ? user?.name : "Login" } 
+                                </NavLink>
+                            </Link>
+                            <Link to={user ? "/Profile" : "/login"}>
+                                <NavLink href="/navbar" ripple="light">
+                                    Logout
                                 </NavLink>
                             </Link>
                         </Nav>
-                        <NavbarInput type="text" placeholder="Search Geeks" />
                     </NavbarCollapse>
                 </NavbarContainer>
 

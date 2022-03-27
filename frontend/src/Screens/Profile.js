@@ -4,26 +4,29 @@ import Button from "@material-tailwind/react/Button";
 import { Context } from '../Context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getMyPosts } from '../Redux/Actions/userAction';
-import Projects from '../Components/Projects';
+import { getMyPosts, getMyQAs } from '../Redux/Actions/userAction';
 import Userposts from '../Components/Userposts';
+import Projects from '../Components/Projects';
+import QaPosts from '../Components/QaPosts';
 
 const Profile = () => {
 
-  const { user, dispatch:dispatchs } = useContext(Context);
+  const { user } = useSelector((state) => state.getUserReducer);
   const navigate = useNavigate();
 
   const { posts, loading, error } = useSelector((state) => state.getMyPostsReducer);
+  const { qa } = useSelector((state) => state.getMyQAReducer);
 
   const dispatch = useDispatch();
 
   const logout = () => {
-    dispatchs({ type: "LOGOUT" });
+    // dispatchs({ type: "LOGOUT" });
     navigate("/");
   }
 
   useEffect(() => {
     dispatch(getMyPosts());
+    dispatch(getMyQAs());
   }, [dispatch]);
 
   return (
@@ -43,14 +46,6 @@ const Profile = () => {
         />
         <div>{user?.name}</div>
         <div>{user?.email}</div>
-        <div> Level : 5</div>
-        <button className="edits">Edit Profile</button>
-        <div>
-          <span>0 Followers</span>
-        </div>
-        <div>
-          <span>0 Following</span>
-        </div>
         <button className="edits" onClick={logout} >Logout</button>
 
         {
@@ -63,12 +58,33 @@ const Profile = () => {
             }}>No Posts Available</h1>
           </div>
         }
-
         {
-          posts.map((p) => (
-            <Userposts post={p}/>
+          posts?.length !==0  && 
+
+        <h1 style={{
+          marginTop: "20px",
+          fontSize:"50px"
+        }}>Your Projects Posts</h1>
+              }
+        {
+          posts?.map((p) => (
+            <Projects project={p} isDelete={true} />
           ))
         }
+
+        {
+          qa?.length !==  0 && 
+         <h1 style={{
+          marginTop: "20px",
+          fontSize:"50px"
+        }}>Your QA Posts</h1>
+        }
+           {
+          qa?.map((q) => (
+            <QaPosts post = {q}  isDelete={true} />
+          ))
+        }
+
 
       </div>
     </>

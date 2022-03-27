@@ -15,20 +15,27 @@ const qaSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
     }],
-
-    // comments: [{
-    //     commentedBy:{
-    //         type:mongoose.Schema.Types.ObjectId,
-    //         ref:"User"
-    //     },
-    //     comment:{
-    //         type:String,
-    //         required:true
-    //     }
-    // }]
-
-
+   comments: [{
+       user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"User"
+    },
+    commentedText: {
+        type: String,
+    },
+    replies: [{
+      repliedBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"User"
+      },
+      commentedText: {
+        type: String
+      },
+    }]
+  }],
 }, { timestamps: true });
+
+
 
 const QA = mongoose.model('Qa', qaSchema);
 module.exports = QA;

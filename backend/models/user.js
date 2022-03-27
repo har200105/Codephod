@@ -12,24 +12,17 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    avatar: {
-        type: String,
+    verified: {
+        type: Boolean,
+        default:false
     },
-
-    projects: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Projects"
-    }],
-
-    followers: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
-    }],
-
-    followings: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User" 
-    }]
+    isAdmin: {
+        type: Boolean,
+        default:false 
+    },
+    verifyEmailToken: String,
+    forgetPasswordToken: String,
+    forgetExpireToken:Date
 
 }, { timestamps: true });
 

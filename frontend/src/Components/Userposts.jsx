@@ -8,29 +8,19 @@ import { useState } from 'react';
 
 const Userposts = ({post}) => {
 
-    const [show, setShow] = useState(false);
+  const [show, setShow] = useState(false);
+  const likePost = async (id) => {
+    
+  }
+
+  const disLike = async (id) => {
+    
+  }
     
   return (
       <>
          <div className="posts">
         <div className="title">
-
-          <img
-            className="profile_pic"
-            src={"https://res.cloudinary.com/harshit111/image/upload/v1627476264/fqnrpqlujucrotiazxvc.png"
-            }
-            style={{
-              height: "50px",
-              width: "50",
-              borderRadius: "40px",
-              margin: "10px",
-            }}
-            alt=""
-          />
-          {/* <div style={{
-            display: "flex !important",
-            flexDirection: "row !important"
-          }}> */}
             <Link
               style={{
                 textStyle: "none",
@@ -47,29 +37,23 @@ const Userposts = ({post}) => {
                 {post.postedBy.name}
               </b>
             </Link>
-          {/* </div> */}
         </div>
         <div className="description">{post.caption}</div>
         <div
           className="reaction"
         >
-          {/* <button className="like">
-            <ThumbUpIcon
-              className="react-icon"
-              fontSize="large"
-              style={{ color: "#2DFF5E" }}
-            />
-          </button> */}
           <button className="like">
             <ThumbUpOutlinedIcon
               className="react-icon"
               fontSize="large"
               style={{ color: "white" }}
+              onClick={()=>likePost(post._id)}
             />
               <ThumbDownAltOutlined
               className="react-icon"
               fontSize="large"
               style={{ color: "white" }}
+              onClick={()=>disLike(post._id)}
             />
           </button>
           <button className='like' onClick={() => setShow(true)}>

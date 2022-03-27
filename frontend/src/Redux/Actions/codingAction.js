@@ -25,3 +25,17 @@ export const addCodingQuestions = (coding) => async (dispatch) => {
         dispatch({ type: 'ADD_CODING_FAIL', payload: e });
     }
 }
+
+export const addWorkshop = (workshop) => async (dispatch) => {
+    try {
+        dispatch({ type: 'ADD_WORKSHOP_REQ' });
+        const { data } = await axios.post(API + "/addWorkshop", workshop , {
+            headers: {
+                "Authorization": localStorage.getItem("jwt")
+            }
+        });
+        dispatch({ type: 'ADD_WORKSHOP_SUCCESS',payload:data.isAdded });
+    } catch (e) {
+        dispatch({ type: 'ADD_WORKSHOP_FAIL', payload: e });
+    }
+}

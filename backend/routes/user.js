@@ -4,70 +4,54 @@ const route = require('express').Router();
 const QA = require('../models/qa');
 const Projects = require('../models/project');
 
-route.get('/getUser/:id', async (req, res) => {
-    await User.findById(req.params.id).then((s) => {
+route.get('/user', async (req, res) => {
+    await User.findById(req.user._id).then((s) => {
         res.status(201).json(s)
     })
 });
 
-route.put('/followUser/:id', middleware, async (req, res) => {
-});
 
-
-route.put('/unFollowUser/:id', middleware, async (req, res) => {
-});
-
-
-route.put('/editProfile', middleware, async (req, res) => {
-
-});
-
-route.get('/getSearchedQueries', async (req, res) => {
+route.get('/getMyPosts', middleware, async (req, res) => {
     try {
 
-        // All Implementation Remaining
-
-        User.find({ name: req.query.name }).then((s) => {
-            res.status(201).json(s)
-        })
-
+        const projects = await Projects.find({ postedBy: req.user._id })
+             .populate("postedBy", "name email")
+          .populate("comments.user", "name email")
+          .populate("comments.replies.repliedBy" ,"name email")
+        // const qas = await QA.find({ postedBy: req.user._id })
+        //     .populate("postedBy", "name email")
+        //     .sort("-createdAt");;
+        // console.log(projects.concat(...qas))
+        // res.status(201).json(projects.concat(...qas));
+        res.status(201).json(projects);
     } catch (e) {
-
-        console.log(e);
-
+        res.status(500).json(e);
     }
 });
 
-route.get('/getMyPosts',middleware,async(req,res)=>{
-    try{
-
-     const projects = await Projects.find({postedBy:req.user._id})
-     .populate("postedBy","name email")
-     .sort("-createdAt");
-     console.log("dd")
-     const qas = await QA.find({postedBy:req.user._id})
-     .populate("postedBy","name email")
-     .sort("-createdAt");;
-     console.log(projects.concat(...qas))
-     res.status(201).json(projects.concat(...qas));
-
-    }catch(e){
-
+route.get('/getMyQA', middleware, async (req, res) => {
+    try {
+        const qas = await QA.find({ postedBy: req.user._id })
+            .populate("postedBy", "name email")
+          .populate("comments.user", "name email")
+          .populate("comments.replies.repliedBy" ,"name email")
+        res.status(201).json(qas);
+    } catch (e) {
+        res.status(500).json(e);
     }
-})
+});
+
 
 
 
 route.get('/getUserProjects/:id', middleware, async (req, res) => {
     try {
-
         Projects.find({ postedBy: req.params.id })
         .populate("postedBy","name email")
         .sort("-createdAt")
         .then((s) => {
             res.status(201).json(s)
         })
-
     } catch (e) {
         console.log(e);
     }

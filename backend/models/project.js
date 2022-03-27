@@ -16,14 +16,28 @@ const projectSchema = mongoose.Schema({
         required: true
     },
 
-    likes:[{
-
+    likes: [{
+       type: mongoose.Schema.Types.ObjectId,
+        ref:"User"
     }],
-
     comments: [{
-
-    }],
-
+       user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"User"
+    },
+    commentedText: {
+        type: String,
+    },
+    replies: [{
+      repliedBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"User"
+      },
+      commentedText: {
+        type: String
+      },
+    }]
+  }],
     image: {
         type: String,
     }

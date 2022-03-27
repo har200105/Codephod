@@ -7,6 +7,8 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../Components/Loader';
 import { getCodingQuestions } from '../Redux/Actions/codingAction';
+import Opportunities from '../Components/Opportunities';
+import Contests from '../Components/Contests';
 
 
 const CodingQuestions = () => {
@@ -21,17 +23,12 @@ const CodingQuestions = () => {
   return (
 
     <>
+      <Contests/>
       <div className='contr_ques'>
         <Link to="/contribute">
           Contribute Questions to the portal
         </Link>
       </div>
-
-      {/* <Coding/>
-        <Coding/>
-        <Coding/>
-        <Coding/>
-        <Coding/> */}
 
       {loading && <Loader />}
 

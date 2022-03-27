@@ -2,10 +2,10 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { opportunityReducer, workShopReducer } from './Reducers/HomeReducer';
-import { addQAReducer, getQAReducer } from './Reducers/qaReducer';
-import { addProjectsReducer, getProjectsReducer } from './Reducers/projectReducer';
-import { addCodingReducer, getCodingReducer } from './Reducers/codingReducer';
-import { getMyPostsReducer } from './Reducers/userReducer';
+import { addQAReducer, getMyQAReducer, getQAReducer } from './Reducers/qaReducer';
+import { addProjectCommentReducer, addProjectsReducer, getProjectsReducer } from './Reducers/projectReducer';
+import { addCodingReducer, addWorkshopReducer, getCodingReducer } from './Reducers/codingReducer';
+import { getMyPostsReducer, getUserReducer } from './Reducers/userReducer';
 
 const rootReducer = combineReducers({
     opportunityReducer: opportunityReducer,
@@ -16,7 +16,11 @@ const rootReducer = combineReducers({
     addProjectsReducer:addProjectsReducer,
     getCodingReducer:getCodingReducer,
     addCodingReducer:addCodingReducer,
-    getMyPostsReducer:getMyPostsReducer
+    getMyPostsReducer: getMyPostsReducer,
+    getUserReducer: getUserReducer,
+    addProjectCommentReducer: addProjectCommentReducer,
+    getMyQAReducer: getMyQAReducer,
+    addWorkshopReducer:addWorkshopReducer
 });
 
 const middleware = [thunk];

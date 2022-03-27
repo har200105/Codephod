@@ -11,12 +11,22 @@ import Login from './Screens/Login';
 import Signup from './Screens/Signup';
 import SearchPage from './Screens/SearchPage';
 import Profile from './Screens/Profile';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { Context } from './Context/AuthContext';
+import Verify from './Screens/Verify';
+import { useDispatch, useSelector } from 'react-redux';
+import { loadUser } from './Redux/Actions/userAction';
+import ForgetPassword from './Screens/ForgetPassword';
+import AddWorkshop from './Screens/AddWorkshop';
 
 function App() {
 
-  const {user} = useContext(Context);
+  const dispatch = useDispatch();
+  const {user,isAuthenticated} = useSelector((state) => state.getUserReducer);
+
+  useEffect(() => {
+    dispatch(loadUser());
+  }, [dispatch]);
 
   return (
 
@@ -30,15 +40,19 @@ function App() {
         </Routes>
 
         <Routes>
-          <Route exact path="/login" element={user ?<Home/> :  <Login/>  } />
+          <Route exact path="/login" element={isAuthenticated ? <Home/> :  <Login/>  } />
         </Routes>
 
         <Routes>
-          <Route exact path="/register" element={user ? <Home/> : <Signup/>} />
+          <Route exact path="/register" element={isAuthenticated ? <Home/> : <Signup/>} />
         </Routes>
 
         <Routes>
           <Route exact path="/qa" element={<QA/>} />
+        </Routes>
+
+        <Routes>
+          <Route exact path="/forgetPassword" element={<ForgetPassword/>} />
         </Routes>
 
         <Routes>
@@ -54,11 +68,15 @@ function App() {
         </Routes>
 
         <Routes>
-          <Route exact path="/search" element={<SearchPage/>} />
+          <Route exact path="/profile" element={<Profile/>} />
         </Routes>
 
         <Routes>
-          <Route exact path="/profile" element={<Profile/>} />
+          <Route exact path="/addWorkshop" element={<AddWorkshop/>} />
+        </Routes>
+
+         <Routes>
+          <Route exact path="/verify/:token" element={<Verify/>}/>
         </Routes>
 
       </BrowserRouter>

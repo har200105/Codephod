@@ -5,19 +5,19 @@ const questionSchema = mongoose.Schema({
         type:String,
         required:true
     },
-
+    
     OrganizedAt:{
         type:String,
         required:true
     },
 
-    Duration:{
-        type:String,
+    OrganizedOn:{
+       type:String,
         required:true
     },
 
-    OrganizedOn:{
-        type:Date,
+    workshopTitle: {
+        type:String,
         required:true
     },
 
