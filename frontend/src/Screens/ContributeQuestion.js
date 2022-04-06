@@ -29,12 +29,8 @@ const ContributeQuestion = ()=>{
             QuestionLink:link,
             Question:question
         }));
-
         dispatch(getCodingQuestions());
-        
-         navigate("/coding");
-
-
+        navigate("/coding");
     }
 
     return (

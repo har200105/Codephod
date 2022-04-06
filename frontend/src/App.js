@@ -18,6 +18,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loadUser } from './Redux/Actions/userAction';
 import ForgetPassword from './Screens/ForgetPassword';
 import AddWorkshop from './Screens/AddWorkshop';
+import ResetPassword from './Screens/ResetPassword';
 
 function App() {
 
@@ -77,6 +78,10 @@ function App() {
 
          <Routes>
           <Route exact path="/verify/:token" element={<Verify/>}/>
+        </Routes>
+
+        <Routes>
+          <Route exact path="/resetPassword/:token" element={<ResetPassword/>}/>
         </Routes>
 
       </BrowserRouter>

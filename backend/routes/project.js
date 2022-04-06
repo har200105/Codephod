@@ -77,7 +77,7 @@ route.put('/likeProject/:id', middleware, async (req, res) => {
         }
     }).then((s) => {
         res.status(201).json({
-            success:true
+            success:true,
         })
     })
 });

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Projects.css';
 import { Link } from 'react-router-dom';
 import ThumbUpOutlinedIcon from "@material-ui/icons/ThumbUpOutlined";
@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addCommentOnProject, deleteProjectPost, getProjectPosts } from '../Redux/Actions/projectAction';
 import { API } from '../API';
 import CommentCard from './CommentCard';
+import { getMyPosts, getMyQAs } from '../Redux/Actions/userAction';
 const Projects = ({ project, isDelete }) => {
 
 
@@ -24,6 +25,9 @@ const Projects = ({ project, isDelete }) => {
   const addCommentHandler = async (e) => {
     e.preventDefault();
     dispatch(addCommentOnProject(project?._id, commentValue));
+    setCommentValue("");
+    dispatch(getProjectPosts());
+    dispatch(getMyPosts());
   };
 
       const likePost = async (id) => {
@@ -36,6 +40,8 @@ const Projects = ({ project, isDelete }) => {
     });
     if (post.data.success) {
       dispatch(getProjectPosts());
+      dispatch(getMyPosts());
+      dispatch(getMyQAs());
     }
   }
 
@@ -44,7 +50,7 @@ const Projects = ({ project, isDelete }) => {
     }, {
       headers: {
           "Authorization":localStorage.getItem("jwt")
-       }
+  }
      });
     if (post.data.success) {
       dispatch(getProjectPosts());
@@ -54,8 +60,13 @@ const Projects = ({ project, isDelete }) => {
 
   const deletePost = async () => {
     dispatch(deleteProjectPost(project?._id));
-     dispatch(getProjectPosts());
+    dispatch(getProjectPosts());
   }
+
+  useEffect(() => {
+    dispatch(getProjectPosts());
+    dispatch(getMyPosts());
+  }, [dispatch]);
 
     return (
         <>
@@ -80,7 +91,7 @@ const Projects = ({ project, isDelete }) => {
               }
               </div>
             
-                 {
+          {
               isDelete && <div style={{
                 float: "right !important",
                 marginLeft:"20px",
@@ -88,7 +99,8 @@ const Projects = ({ project, isDelete }) => {
               }}> 
                 <Delete onClick={() =>deletePost()}/>
                           </div>
-                        }
+            }
+            
           </div>
           {
               project?.image &&
@@ -117,8 +129,11 @@ const Projects = ({ project, isDelete }) => {
                 />
               </button>
             }
-                    <button className='like' onClick={() => setCommentToggle(!commentToggle)}>
-              {isAuthenticated && <ChatBubble
+            
+            <button className='like' onClick={() => setCommentToggle(!commentToggle)}>
+              
+              {
+                isAuthenticated && <ChatBubble
                 className="react-icon"
                 fontSize="large"
                 style={{ color: "white" }}
@@ -145,7 +160,8 @@ const Projects = ({ project, isDelete }) => {
               required
                 style={{
                   color: "black",
-                  fontSize:"20px"  
+                  fontSize: "20px",
+                  width:"100%"
               }}
             />
               <button type="submit" style={{

@@ -26,7 +26,25 @@ const ForgetPassword = () => {
                 isClosable:true
             });
         } else {
-            // const forgetPass = await axios.put(`${API}/forgetPassword`);
+            const forgetPass = await axios.post(`${API}/forgotPassword`, {
+                email
+            });
+            if (forgetPass.data.success) {
+                  toast({
+                    title: "Reset Password Link to your email",
+                    status:"success",
+                    position: "top-right",
+                    isClosable: true
+                  });
+                setEmail("");
+            } else {
+                toast({
+                title: "Invalid Email",
+                status: "error",
+                position: "top-right",
+                isClosable:true
+            });
+            }
         }
     }
 

@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 import "./CommentCard.css";
 import { Delete,Reply } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
-import { replyOnComment } from "../Redux/Actions/projectAction";
+import { getProjectPosts, replyOnComment } from "../Redux/Actions/projectAction";
+import { getMyPosts } from "../Redux/Actions/userAction";
 
 const CommentCard = ({
   userId,
@@ -24,17 +24,18 @@ const CommentCard = ({
   const replyComment = async (e) => {
     e.preventDefault();
     dispatch(replyOnComment(postId, commentId, comments));
+    setComment("");
+    dispatch(getProjectPosts());
+    dispatch(getMyPosts());
   }
 
 
   return (
     <>
       <div className="commentUser">
-        <p style={
-          {
+        <p style={{
             minWidth: "6vmax",fontWeight:"bold",color: "white"
-          }
-        } > Comments</p>
+          }}> Comments</p>
         <div>
           <p style={{fontWeight:"bold",color: "white",fontSize:"25px" }}>{name}</p>
         </div>
@@ -44,7 +45,7 @@ const CommentCard = ({
           marginLeft: "15px",
           fontSize:"20px"
           }}>{comment}
-                <button style={{color:"blue"}} onClick={()=>setReply(true)}>
+      <button style={{color:"blue"}} onClick={()=>setReply(true)}>
         <Reply/>
       </button>
           </p>
@@ -75,6 +76,7 @@ const CommentCard = ({
 
       {
         <>
+          
           {
             replies.length !== 0 &&
             <p style={{
@@ -83,6 +85,8 @@ const CommentCard = ({
               marginLeft: "30px"
             }}>Replies</p>
           }
+
+
           {
             replies?.map((c) => (
               <div className="reply">

@@ -58,7 +58,7 @@ route.get('/getQA', async (req, res) => {
 });
 
 
-route.put('/likeProject/:id', middleware, async (req, res) => {
+route.put('/likeQA/:id', middleware, async (req, res) => {
     await QA.findByIdAndUpdate(req.params.id, {
         $push: {
             likes:req.user._id
@@ -70,7 +70,7 @@ route.put('/likeProject/:id', middleware, async (req, res) => {
     })
 });
 
-route.put('/dislikeProject/:id', middleware, async (req, res) => {
+route.put('/dislikeQA/:id', middleware, async (req, res) => {
     await QA.findByIdAndUpdate(req.params.id, {
         $pull: {
             likes:req.user._id

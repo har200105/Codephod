@@ -10,6 +10,9 @@ import axios from "axios";
 import { API } from "../API";
 import { Context } from "../Context/AuthContext";
 import { Link } from "react-router-dom";
+import { useToast } from '@chakra-ui/react';
+import {useNavigate} from 'react-router-dom';
+import { loadUser } from "../Redux/Actions/userAction";
 
 const Login = () => {
 
@@ -18,23 +21,50 @@ const Login = () => {
     const [error, setError] = useState("");
     const [password, setPassword] = useState("");
 
+    
+    const navigate = useNavigate();
+
+    const toast = useToast();
+
     const LoginUser = async () => {
+        
         try {
+
             const logs = await axios.post(API + "/login" , {
                 email,
                 password
             });
-
+            
             dispatch({ type: 'LOGIN_START' });
-
-            if (logs.status === 201) {
+            if (logs.data.success) {
                 localStorage.setItem("jwt", logs.data.token);
                 dispatch({ type: "LOGIN_SUCCESS", payload: logs.data });
+                  dispatch(loadUser());
+                window.location.href = "/";
+                toast({
+                    title: "Login Success",
+                    status: "success",
+                    position: "top-right",
+                    isClosable:true
+                });
+            } else {
+                 toast({
+                    title: "Invalid Credentials",
+                    status: "error",
+                     position: "top-right",
+                     isClosable:true
+                });
             }
         } catch (e) {
             console.log("eefede")
             setError("Invalid Credentials");
             dispatch({ type: "LOGIN_FAILURE" });
+              toast({
+                title: "Invalid Credentials",
+                status: "error",
+                position: "top-right",
+                isClosable:true
+            });
         }
     }
 

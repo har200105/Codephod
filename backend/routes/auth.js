@@ -81,10 +81,11 @@ route.post('/forgotPassword', async (req, res) => {
     const { email } = req.body;
     try {
         const user = await User.findOne({ email });
+        console.log(user);
         if (user) {
             const t = crypto.randomBytes(20).toString("hex");
-            user.resetPasswordToken = t;
-            user.resetPasswordExpire = Date.now() + 10 * 10 * 600;
+            user.forgetPasswordToken = t;
+            user.forgetExpireToken = Date.now() + 10 * 10 * 600;
             await user.save();
             const passwordLink = `http://localhost:3000/resetPassword/${t}`;
             sendResetEmail(passwordLink,email);
@@ -108,23 +109,23 @@ route.post('/resetPassword/:token', async (req, res) => {
     const token = req.params.token;
     console.log(req.body);
     const { password } = req.body;
-    console.log(req.body)
-    const t = await User.findOne({
-        $and: [{
-            resetPasswordToken: token,
-        }]
-    });
+    const t = await User.findOne({forgetPasswordToken: token});
     if (t) {
         const hashed = await b.hash(password, 8);
+        console.log("....///");
+        console.log(hashed);
         await User.findOneAndUpdate({ email: t.email }, {
             password: hashed,
-            resetPasswordToken:null,
-            resetPasswordExpire: null
-        });
-        res.status(201).json({
+            forgetPasswordToken:null,
+            forgetExpireToken: null
+        }, {
+            new:true
+        }).then(() => {
+            res.status(201).json({
             success:true,
             message: "Password Changed Successfully"
-        })
+    })
+        });
     } else {
         res.status(201).json({
             success:false,

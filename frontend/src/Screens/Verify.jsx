@@ -9,11 +9,10 @@ const Verify = () => {
 
     const { token } = useParams();
     const toast = useToast();
-    console.log(token);
     const navigate = useNavigate();
 
     const verifyEmail = async () => {
-        const verify = await axios.post(`${API}/api/verify`, {
+        const verify = await axios.post(`${API}/verify`, {
             token
         });
         if (verify.data.success) {

@@ -24,15 +24,17 @@ const ProjectsPage = () => {
 
   const toast = useToast();
 
-    const readImage = (e) =>{
-    console.log(e)
+  const readImage = (e) => {
+      
     const reader = new FileReader();
     reader.onload = () =>{
       if(reader.readyState===2){
         setFile(reader.result);
       }
     }
-      reader.readAsDataURL(e.target.files[0]); 
+    
+    reader.readAsDataURL(e.target.files[0]); 
+
   }
 
 
@@ -41,6 +43,17 @@ const ProjectsPage = () => {
     let type;
     const hashtag = ptext.match(/#\w+/g);
 
+       if (!hashtag  || hashtag?.length === 0) {
+      toast({
+        title: "Invalid Hashtag",
+        isClosable: true,
+        status: "warning",
+        position:"top-right"
+      })
+         return;
+    }
+
+
     if(hashtag[0] === "#proposal"){
       type = "Proposal";
     }else if(hashtag[0] === "#myproject"){
@@ -48,34 +61,38 @@ const ProjectsPage = () => {
     } else {
       toast({
         title: "Invalid Hashtag",
-        isClosable: false,
+        isClosable: true,
         status: "warning",
         position:"top-right"
       })
       return;
     }
 
+ 
     dispatch(addProjectPosts({
       caption:ptext,
       PostType: type,
       image:file
     }));
-    
 
-    navigate("/projects");
+    dispatch(getProjectPosts());
+
+    setPText("");
+    setFile("");
+  
 
   }
 
 
   useEffect(() => {
     dispatch(getProjectPosts());
-  }, [dispatch]);
+  }, [dispatch,projects]);
 
 
 
   return (
-
     <>
+      
       {
         user && <>
         <div style={{

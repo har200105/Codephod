@@ -19,11 +19,6 @@ const Profile = () => {
 
   const dispatch = useDispatch();
 
-  const logout = () => {
-    // dispatchs({ type: "LOGOUT" });
-    navigate("/");
-  }
-
   useEffect(() => {
     dispatch(getMyPosts());
     dispatch(getMyQAs());
@@ -39,14 +34,13 @@ const Profile = () => {
       >
         <img
           className="profile_pic pp"
-          src={"https://res.cloudinary.com/harshit111/image/upload/v1627476410/q1rjnignh5djpnujltyy.png"
+          src={"https://cdn3.iconfinder.com/data/icons/web-and-seo-11-1/65/549-512.png"
           }
           style={{ height: "250px", width: "250px" }}
           alt=""
         />
         <div>{user?.name}</div>
         <div>{user?.email}</div>
-        <button className="edits" onClick={logout} >Logout</button>
 
         {
           posts?.length === 0 && <div style={{
@@ -71,20 +65,6 @@ const Profile = () => {
             <Projects project={p} isDelete={true} />
           ))
         }
-
-        {/* {
-          qa?.length !==  0 && 
-         <h1 style={{
-          marginTop: "20px",
-          fontSize:"50px"
-        }}>Your QA Posts</h1>
-        }
-           {
-          qa?.map((q) => (
-            <QaPosts post = {q}  isDelete={true} />
-          ))
-        } */}
-
 
       </div>
     </>

@@ -15,20 +15,25 @@ const CodingQuestions = () => {
 
   const dispatch = useDispatch();
   const { coding, loading, error } = useSelector((state) => state.getCodingReducer);
+  const { user } = useSelector((state) => state.getUserReducer);
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(getCodingQuestions());
-  },[dispatch])
+  }, [dispatch]);
 
   return (
 
     <>
-      <Contests/>
+      <Contests />
+      
+      {
+        user &&
       <div className='contr_ques'>
         <Link to="/contribute">
           Contribute Questions to the portal
         </Link>
-      </div>
+        </div>
+      }
 
       {loading && <Loader />}
 

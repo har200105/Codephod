@@ -9,18 +9,36 @@ import H5 from "@material-tailwind/react/Heading5";
 import axios from 'axios';
 import { API } from "../API";
 import { Context } from "../Context/AuthContext";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { useToast } from '@chakra-ui/react';
 
 const ResetPassword = () => {
 
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
+    const { token } = useParams();
+    const toast = useToast();
+
     const resetPassword = async () => {
-        await axios.post(API + "/resetPassword", {
-            password,
-            confirmPassword
-        });
+       const resp =  await axios.post(API + `/resetPassword/${token}`, {
+            password
+       });
+        if (resp.data.success) {
+               toast({
+                    title: "Password Changed Successfully",
+                    status:"success",
+                    position: "top-right",
+                    isClosable: true
+               });
+        } else {
+             toast({
+                title: "Invalid URL",
+                status: "error",
+                position: "top-right",
+                isClosable:true
+            });
+        }
     }
     
     return (
@@ -32,20 +50,11 @@ const ResetPassword = () => {
                 <CardBody>
                     <div className="mb-8 px-4">
                         <InputIcon
-                            type="email"
+                            type="password"
                             color="lightBlue"
-                            placeholder="Email Address"
-                            iconName="email"
+                            placeholder="Password"
+                            iconName="password"
                             onChange={(e) => setPassword(e.target.value)}
-                        />
-                    </div>
-                        <div className="mb-8 px-4">
-                        <InputIcon
-                            type="email"
-                            color="lightBlue"
-                            placeholder="Email Address"
-                            iconName="email"
-                            onChange={(e) => setConfirmPassword(e.target.value)}
                         />
                     </div>
                 </CardBody>

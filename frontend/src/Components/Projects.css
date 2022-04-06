@@ -55,6 +55,17 @@
   }
 
   @media screen and (max-width: 600px) {
+    .commentForm{
+      width: 350px !important;
+      display: flex;
+    }
+
+    .replyForm {
+      width: 250px !important;
+      display: flex;
+    }
+
+
   .post {
     width: 100%;
     border-radius: 0;

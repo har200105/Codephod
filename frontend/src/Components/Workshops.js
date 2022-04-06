@@ -23,7 +23,7 @@ const Workshops = () => {
 
     const dispatch = useDispatch();
     const { workshops, error, loading } = useSelector((state) => state.workShopReducer);
-
+    const { user } = useSelector((state) => state.getUserReducer);
 
     useEffect(() => {
         dispatch(getWorkshops());
@@ -31,16 +31,19 @@ const Workshops = () => {
 
     return (
         <>
-            <div className='contr_ques'>
-                <Link to="/addWorkshop">
-                Add Workshops to the Portal
-                </Link>
-            </div>
+            {
+                user &&
+                <div className='contr_ques'>
+                    <Link to="/addWorkshop">
+                        Add Workshops to the Portal
+                    </Link>
+                </div>
+            }
         
             {loading && <Loader />}
             
             {
-                workshops.length === 0 && <h1 style={{
+                workshops?.length === 0 && <h1 style={{
                     textAlign:"center",
                     marginBottom:"20px",
                     fontSize: "25px"
@@ -75,7 +78,7 @@ const Workshops = () => {
                                         </CardBody>
 
                                         <CardFooter>
-                                            <a href={w.workShopLink} target="_parent">
+                                                  <a href={w.workShopLink} target="_parent">
                                                 <Button color="lightBlue" size="lg" ripple="light">
                                                     Register
                                                 </Button>

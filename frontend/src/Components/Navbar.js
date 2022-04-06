@@ -8,19 +8,28 @@ import NavbarCollapse from "@material-tailwind/react/NavbarCollapse";
 import Nav from "@material-tailwind/react/Nav";
 import NavItem from "@material-tailwind/react/NavItem";
 import NavLink from "@material-tailwind/react/NavLink";
-import NavbarInput from "@material-tailwind/react/NavbarInput";
 import Icon from "@material-tailwind/react/Icon";
-import Dropdown from "@material-tailwind/react/Dropdown"
-import DropdownItem from "@material-tailwind/react/DropdownItem"
-import DropdownLink from "@material-tailwind/react/DropdownLink"
 import { Link } from "react-router-dom";
 import { Context } from "../Context/AuthContext";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { Button } from "@material-ui/core";
+import { loadUser } from "../Redux/Actions/userAction";
+import {useNavigate } from 'react-router-dom';
 
 export default function Header() {
 
     const [openNavbar, setOpenNavbar] = useState(false);
     const { isAuthenticated, user } = useSelector((state) => state.getUserReducer);
+
+    const dispatch = useDispatch();
+
+    const navigate = useNavigate();
+
+    const logout = async () => {
+        localStorage.removeItem("jwt");
+        dispatch(loadUser());
+        navigate("/");
+    }
 
     return (
         <>
@@ -69,15 +78,17 @@ export default function Header() {
                                     { user ? user?.name : "Login" } 
                                 </NavLink>
                             </Link>
-                            <Link to={user ? "/Profile" : "/login"}>
-                                <NavLink href="/navbar" ripple="light">
+                            {
+                                user &&
+                            <Button onClick={()=>logout()} >
+                                <NavLink ripple="light">
                                     Logout
                                 </NavLink>
-                            </Link>
+                                </Button>
+                            }
                         </Nav>
                     </NavbarCollapse>
                 </NavbarContainer>
-
             </Navbar>
         </>
     );
