@@ -1,13 +1,10 @@
 import React, { useContext, useEffect } from 'react';
 import './Profile.css';
-import Button from "@material-tailwind/react/Button";
-import { Context } from '../Context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getMyPosts, getMyQAs } from '../Redux/Actions/userAction';
-import Userposts from '../Components/Userposts';
+import { getMyPosts } from '../Redux/Actions/userAction';
 import Projects from '../Components/Projects';
-import QaPosts from '../Components/QaPosts';
+import Loader from '../Components/Loader';
 
 const Profile = () => {
 
@@ -15,14 +12,18 @@ const Profile = () => {
   const navigate = useNavigate();
 
   const { posts, loading, error } = useSelector((state) => state.getMyPostsReducer);
-  const { qa } = useSelector((state) => state.getMyQAReducer);
+
+  const {success} = useSelector((state) => state.deleteProjectsReducer);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getMyPosts());
-    dispatch(getMyQAs());
   }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getMyPosts());
+  }, [success]);
 
   return (
     <>
@@ -43,7 +44,7 @@ const Profile = () => {
         <div>{user?.email}</div>
 
         {
-          posts?.length === 0 && <div style={{
+         !loading && posts?.length === 0 && <div style={{
             justifyContent: "center"
           }}>
             <h1 style={{
@@ -52,14 +53,17 @@ const Profile = () => {
             }}>No Posts Available</h1>
           </div>
         }
+
+
         {
           posts?.length !==0  && 
-
-        <h1 style={{
-          marginTop: "20px",
-          fontSize:"50px"
-        }}>Your Projects Posts</h1>
-              }
+          <h1 style={{
+            marginTop: "20px",
+            fontSize:"50px"
+          }}>Your Projects Posts</h1>
+        }
+        
+       
         {
           posts?.map((p) => (
             <Projects project={p} isDelete={true} />

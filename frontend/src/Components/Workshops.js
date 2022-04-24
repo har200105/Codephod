@@ -43,7 +43,7 @@ const Workshops = () => {
             {loading && <Loader />}
             
             {
-                workshops?.length === 0 && <h1 style={{
+               !loading && workshops?.length === 0 && <h1 style={{
                     textAlign:"center",
                     marginBottom:"20px",
                     fontSize: "25px"

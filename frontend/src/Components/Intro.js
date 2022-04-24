@@ -8,8 +8,7 @@ const Intro = () => {
          <div>
            <p className='intro_text'>
            A Complete Portal for sharing the Current Openings of Jobs,Internships,
-       Workshops,Project Proposals along with  Q&#38;A section for connecting with the 
-       geeks around the world and sharing  project proposals , there own projects and take
+       Workshops, along with sharing  project proposals , there own projects and take
        some feedbacks.
            </p>
          </div>

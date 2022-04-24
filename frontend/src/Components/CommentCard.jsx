@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./CommentCard.css";
 import { Delete,Reply } from "@mui/icons-material";
@@ -18,16 +18,31 @@ const CommentCard = ({
 
   const [reply, setReply] = useState(false);
   const [comments, setComment] = useState("");
-  const { user,isAuthenticated } = useSelector((state) => state.getUserReducer);
+  const { user, isAuthenticated } = useSelector((state) => state.getUserReducer);
+
+   const { success } = useSelector((state) => state.addReplyReducer);
+  
   const dispatch = useDispatch();
 
   const replyComment = async (e) => {
+    
     e.preventDefault();
     dispatch(replyOnComment(postId, commentId, comments));
     setComment("");
     dispatch(getProjectPosts());
     dispatch(getMyPosts());
+
   }
+
+  useEffect(() => {
+    dispatch(getProjectPosts());
+    dispatch(getMyPosts());
+  }, [success]);
+
+  useEffect(() => {
+    dispatch(getProjectPosts());
+    dispatch(getMyPosts());
+  },[dispatch]);
 
 
   return (

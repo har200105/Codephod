@@ -25,6 +25,40 @@ export const getProjectsReducer  = (state={projects:[]},action)=>{
 }
 
 
+export const deleteProjectsReducer  = (state={},action)=>{
+
+    switch(action.type){
+
+        case 'DELETE_PROJECTS_REQ':
+            return {
+                ...state,
+                loading:true
+        }
+        
+        case 'DELETE_PROJECTS_SUCCESS':
+            return {
+                success:true,
+                loading:false
+        }    
+
+        case 'DELETE_PROJECTS_FAIL':
+            return {
+                loading:false,
+                error:true
+        }    
+        
+        default:
+            return state;
+        
+    }
+
+}
+
+
+
+
+
+
 export const addProjectsReducer  = (state={projects:[]},action)=>{
 
     switch(action.type){
@@ -72,5 +106,39 @@ export const addProjectCommentReducer  = (state={},action)=>{
         default:
             return state     
     }
-
 }
+
+
+
+
+
+export const addReplyReducer = (state={},action)=>{
+
+    switch(action.type){
+        
+        case 'REPLY_PROJECT_COMMENT_REQUEST':
+          
+            return {
+                ...state,
+                loading:true
+            }
+        
+        case 'REPLY_PROJECT_COMMENT_SUCCESS':
+           
+            return {
+                success:true,
+                loading:false
+            }    
+
+        case 'REPLY_PROJECT_COMMENT_FAIL':
+        
+            return {
+                loading:false,
+                error:true
+            }    
+        
+        default:
+            return state     
+    }
+}
+

@@ -3,21 +3,20 @@ import Textarea from "@material-tailwind/react/Textarea";
 import Button from "@material-tailwind/react/Button";
 import Projects from '../Components/Projects';
 import { useDispatch, useSelector } from 'react-redux';
-import { Context } from '../Context/AuthContext';
-import axios from 'axios';
 import { addProjectPosts, getProjectPosts } from '../Redux/Actions/projectAction';
 import { useNavigate } from 'react-router-dom';
 import { AddAPhoto } from '@material-ui/icons';
 import { useToast } from '@chakra-ui/react';
+import Loader from '../Components/Loader';
 
 
 const ProjectsPage = () => {
 
   const navigate = useNavigate();
-
   const dispatch = useDispatch();
   const [ptext,setPText] = useState("");
   const { projects, loading, error } = useSelector((state) => state.getProjectsReducer);
+  const {loading:addLoading} = useSelector((state) => state.addProjectsReducer)
   const { user, isAuthenticated } = useSelector((state) => state.getUserReducer);
   const[shareImage,setShareImage] =  useState("");
   const [file, setFile] = useState();
@@ -54,6 +53,17 @@ const ProjectsPage = () => {
     }
 
 
+    if (hashtag.length >= 2) {
+        toast({
+        title: "Invalid Hashtag",
+        isClosable: true,
+        status: "warning",
+        position:"top-right"
+      })
+      return;
+    }
+
+
     if(hashtag[0] === "#proposal"){
       type = "Proposal";
     }else if(hashtag[0] === "#myproject"){
@@ -75,18 +85,22 @@ const ProjectsPage = () => {
       image:file
     }));
 
-    dispatch(getProjectPosts());
-
+    
     setPText("");
     setFile("");
-  
+    dispatch(getProjectPosts());
 
   }
+
+  useEffect(() => {
+    dispatch(getProjectPosts());
+  }, [addLoading]);
+
 
 
   useEffect(() => {
     dispatch(getProjectPosts());
-  }, [dispatch,projects]);
+  }, []);
 
 
 
@@ -161,7 +175,11 @@ const ProjectsPage = () => {
       }}>
 
         {
-          projects.length === 0 && <div style={{
+          loading && <Loader/>
+        }
+
+        {
+          !loading && projects.length === 0 && <div style={{
             justifyContent: "center"
           }}>
             <h1 style={{

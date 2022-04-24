@@ -19,8 +19,7 @@ const breakPoints = [
 ];
 
 const Opportunities = () => {
-
-
+    
     const dispatch = useDispatch();
     const { opportunities, error, loading } = useSelector((state) => state.opportunityReducer);
 
@@ -38,7 +37,7 @@ const Opportunities = () => {
                         textAlign: "center",
                         fontSize: "25px"
                     }}>Upcoming Opportunities</h1> : 
-                    
+                    !loading &&
                       <h1 style={{
                         justifyContent: "center",
                         textAlign: "center",

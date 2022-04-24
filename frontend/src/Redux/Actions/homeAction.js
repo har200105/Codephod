@@ -15,7 +15,7 @@ export const getWorkshops = () => async (dispatch) => {
 export const getOpportunities = () => async (dispatch) => {
     try {
         dispatch({ type: 'GET_OPPORTUNITIES_REQ' });
-        const { data } = await axios.get("http://applykiya.herokuapp.com/getLink");
+        const { data } = await axios.get("https://applykiya.herokuapp.com/getLink");
         dispatch({ type: 'GET_OPPORTUNITIES_SUCCESS', payload: data });
 
     } catch (e) {

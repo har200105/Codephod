@@ -19,6 +19,21 @@ const Projects = ({ project, isDelete }) => {
   const [commentValue, setCommentValue] = useState("");
   const dispatch = useDispatch();
   const [commentToggle, setCommentToggle] = useState(false);
+
+  const { success } = useSelector((state) => state.deleteProjectsReducer);
+  const { loading } = useSelector((state) => state.addProjectCommentReducer);
+  
+
+  useEffect(() => {
+    dispatch(getMyPosts());
+  }, [success]); 
+
+
+  useEffect(() => {
+    dispatch(getProjectPosts());
+    dispatch(getMyPosts());
+  }, [loading]);
+
   
   
   
@@ -30,14 +45,13 @@ const Projects = ({ project, isDelete }) => {
     dispatch(getMyPosts());
   };
 
-      const likePost = async (id) => {
-    const post = await axios.put(API + `/likeProject/${id}`, {
-      
-    }, {
-      headers: {
-         "Authorization":localStorage.getItem("jwt")
-      }
-    });
+    const likePost = async (id) => {
+          const post = await axios.put(API + `/likeProject/${id}`, {
+          }, {
+            headers: {
+              "Authorization":localStorage.getItem("jwt")
+            }
+          });
     if (post.data.success) {
       dispatch(getProjectPosts());
       dispatch(getMyPosts());
@@ -63,10 +77,12 @@ const Projects = ({ project, isDelete }) => {
     dispatch(getProjectPosts());
   }
 
+
   useEffect(() => {
-    dispatch(getProjectPosts());
-    dispatch(getMyPosts());
-  }, [dispatch]);
+      
+    },[]);
+
+
 
     return (
         <>
@@ -75,18 +91,13 @@ const Projects = ({ project, isDelete }) => {
             <div style={{
                     width:"100%"
                   }}>
-                        <b
-                            style={{
-                                textStyle: "none",
-                            }}
-                        >
+                        <b  style={{textStyle: "none"}}>
                             {project.postedBy.name } 
                         </b>                        
                      {project?.PostType  === "Share" ? <p className='tx'> 
                                  &nbsp;  Shared New His New Project
                             </p> :<p className='tx'> 
-                  &nbsp;  is Asking a Project Collaboration
-                  
+                  &nbsp;  is Asking a Project Collaboration 
               </p>
               }
               </div>
@@ -95,9 +106,10 @@ const Projects = ({ project, isDelete }) => {
               isDelete && <div style={{
                 float: "right !important",
                 marginLeft:"20px",
-                color:"red"
+                color: "red",
+                cursor:"pointer"
               }}> 
-                <Delete onClick={() =>deletePost()}/>
+                <Delete  onClick={() =>deletePost()}/>
                           </div>
             }
             
@@ -151,7 +163,10 @@ const Projects = ({ project, isDelete }) => {
 
        
         <div className="DialogBox">
-          <form className="commentForm" onSubmit={addCommentHandler}>
+            {
+              isAuthenticated &&
+
+            <form className="commentForm" onSubmit={addCommentHandler}>
             <input
               type="text"
               value={commentValue}
@@ -169,7 +184,8 @@ const Projects = ({ project, isDelete }) => {
             }}>
               Comment
             </button>
-          </form>
+              </form>
+                  }
             {project?.comments?.length > 0 ? (
             project?.comments?.map((item) => (
               <CommentCard

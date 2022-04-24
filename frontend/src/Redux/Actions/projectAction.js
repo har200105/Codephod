@@ -107,14 +107,14 @@ export const replyOnComment = (id, commentId, reply) => async (dispatch) => {
 
 export const deleteProjectPost = (id) => async(dispatch) => {
     try{
-        dispatch({ type: 'DELETE_QA_REQ' });
+        dispatch({ type: 'DELETE_PROJECTS_REQ' });
         const {data} =  await axios.delete(API + `/deleteProject/${id}`,{
             headers:{
               "Authorization":localStorage.getItem("jwt")
             }
         });
-        dispatch({ type: 'DELETE_QA_SUCCESS'});
+        dispatch({ type: 'DELETE_PROJECTS_SUCCESS'});
     }catch(e){
-        dispatch({ type: 'DELETE_QA_FAIL', payload: e });   
+        dispatch({ type: 'DELETE_PROJECTS_FAIL', payload: e });   
     }
 }

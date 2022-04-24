@@ -2,14 +2,12 @@ import Header from './Components/Navbar';
 import "@material-tailwind/react/tailwind.css";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './Screens/Home';
-import QA from './Screens/QA';
 import ProjectsPage from './Screens/ProjectPage';
 import './App.css';
 import CodingQuestions from './Screens/CodingQuestions';
 import ContributeQuestion from './Screens/ContributeQuestion';
 import Login from './Screens/Login';
 import Signup from './Screens/Signup';
-import SearchPage from './Screens/SearchPage';
 import Profile from './Screens/Profile';
 import { useContext, useEffect } from 'react';
 import { Context } from './Context/AuthContext';
@@ -26,16 +24,18 @@ function App() {
   const {user,isAuthenticated} = useSelector((state) => state.getUserReducer);
 
   useEffect(() => {
-    dispatch(loadUser());
+    if (localStorage.getItem("jwt")) {
+      dispatch(loadUser());
+   }
   }, [dispatch]);
 
   return (
 
     <>
       <BrowserRouter>
+        
+        <Header />
 
-      <Header />
-      
         <Routes>
           <Route exact path="/" element={<Home/>} />
         </Routes>
@@ -46,10 +46,6 @@ function App() {
 
         <Routes>
           <Route exact path="/register" element={isAuthenticated ? <Home/> : <Signup/>} />
-        </Routes>
-
-        <Routes>
-          <Route exact path="/qa" element={<QA/>} />
         </Routes>
 
         <Routes>
