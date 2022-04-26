@@ -23,7 +23,7 @@ module.exports.sendResetEmail = async(url,email)=>{
 
 module.exports.sendVerificationEmail = async(email,token)=>{
     
-    const url = `http://localhost:3000/verify/${token}`;
+    const url = `${process.env.FRONTEND_URL}/${token}`;
     console.log(url);
     await trans.sendMail({
         from:"Email",

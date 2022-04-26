@@ -87,7 +87,7 @@ route.post('/forgotPassword', async (req, res) => {
             user.forgetPasswordToken = t;
             user.forgetExpireToken = Date.now() + 10 * 10 * 600;
             await user.save();
-            const passwordLink = `http://localhost:3000/resetPassword/${t}`;
+            const passwordLink = `${process.env.FRONTEND_URL}/resetPassword/${t}`;
             sendResetEmail(passwordLink,email);
             res.status(201).json({
                 success: true,

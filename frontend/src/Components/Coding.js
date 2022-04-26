@@ -10,6 +10,7 @@ import './Coding.css';
 const Coding = ({code}) => {
     return (
         <>
+            
             <div class="parent">
                 <div class="right-container">
                     <div class="list_top_questions">
@@ -35,6 +36,7 @@ const Coding = ({code}) => {
                     </div>
                 </div>
             </div>
+
         </>
     );
 };
